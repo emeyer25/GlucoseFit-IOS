@@ -9,49 +9,34 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        VStack {
+            
+            Text("Calories ")
+                .font(Font.custom("Inter", size: 60)
+                    )
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .frame(width: 1080, height: 144, alignment: .center)
+            Spacer()
+            
+            Text("Breakfast")
+              .font(Font.custom("Inter", size: 78))
+              .multilineTextAlignment(.center)
+              .foregroundColor(.black)
+              .frame(width: 1080, height: 144, alignment: .center)
+            Spacer()
+        }.background(
+            LinearGradient(
+            stops: [
+            Gradient.Stop(color: Color(red: 0.33, green: 0.62, blue: 0.68), location: 0.00),
+            Gradient.Stop(color: Color(red: 0.6, green: 0.89, blue: 0.75), location: 1.00),
+            ],
+            startPoint: UnitPoint(x: 0.02, y: 0.61),
+            endPoint: UnitPoint(x: 1.01, y: 0.61)
+            ))
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        
     }
 }
 
@@ -59,3 +44,4 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: Item.self, inMemory: true)
 }
+

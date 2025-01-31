@@ -17,6 +17,7 @@
 		F8F247A32D4D4FB700C9CD9C /* DoseCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */; };
 		F8F247A52D4D512000C9CD9C /* DoseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */; };
 		F8F247A72D4D51E700C9CD9C /* DoseCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */; };
+		F8F247A92D4D53EA00C9CD9C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculatorView.swift; sourceTree = "<group>"; };
 		F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculator.swift; sourceTree = "<group>"; };
 		F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculatorViewModel.swift; sourceTree = "<group>"; };
+		F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */,
 				F8E6CFB12D427F1C00EEE39E /* Item.swift */,
 				F833E1722D4D18BA0035197F /* SettingsView.swift */,
+				F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */,
 				F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */,
 				F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */,
 				F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */,
@@ -163,6 +166,7 @@
 				F833E1752D4D18F00035197F /* HomeView.swift in Sources */,
 				F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */,
 				F8F247A52D4D512000C9CD9C /* DoseCalculator.swift in Sources */,
+				F8F247A92D4D53EA00C9CD9C /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

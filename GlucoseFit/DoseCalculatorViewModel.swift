@@ -1,3 +1,4 @@
+
 import Foundation
 
 class DoseCalculatorViewModel: ObservableObject {
@@ -9,15 +10,24 @@ class DoseCalculatorViewModel: ObservableObject {
     let carbPresets: [String: Int] = [
         "Breakfast": 45,
         "Lunch": 60,
-        "Dinner": 85,
-        "Snack": 1000
+        "Dinner": 65,
+        "Snack": 20
     ]
     
-    private let doseCalculator = DoseCalculator(insulinToCarbRatio: 10, correctionDoseFactor: 50, targetGlucose: 100)
+    // Reference to SettingsViewModel (so it gets insulin ratio & correction dose)
+    @Published var settings: SettingsViewModel
+    
+    init(settings: SettingsViewModel) {
+        self.settings = settings
+    }
 
     var suggestedDose: Double {
         let carbs = selectedMeal == "Custom" ? Double(customCarbs) ?? 0 : Double(carbPresets[selectedMeal] ?? 0)
-        let glucose = Double(glucoseLevel) ?? 100
-        return doseCalculator.calculateDose(carbs: carbs, glucose: glucose)
+        let glucose = Double(glucoseLevel) ?? settings.targetGlucose
+
+        let carbDose = carbs / settings.insulinToCarbRatio
+        let correctionDose = max(0, (glucose - settings.targetGlucose) / settings.correctionDoseFactor)
+        
+        return carbDose + correctionDose
     }
 }

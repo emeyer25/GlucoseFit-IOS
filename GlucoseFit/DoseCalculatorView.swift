@@ -1,14 +1,14 @@
-//
-//  DoseCalculatorView.swift
-//  GlucoseFit
-//
-//  Created by Eric Meyer on 1/31/25.
-//
 
 import SwiftUI
 
 public struct DoseCalculatorView: View {
-    @StateObject private var viewModel = DoseCalculatorViewModel()
+    @StateObject private var settingsViewModel = SettingsViewModel() // Shared Settings
+    @StateObject private var viewModel: DoseCalculatorViewModel
+
+    public init() {
+        let settings = SettingsViewModel()
+        _viewModel = StateObject(wrappedValue: DoseCalculatorViewModel(settings: settings))
+    }
 
     public var body: some View {
         VStack {

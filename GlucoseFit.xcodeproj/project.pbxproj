@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1722D4D18BA0035197F /* SettingsView.swift */; };
+		F833E1752D4D18F00035197F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1742D4D18F00035197F /* HomeView.swift */; };
 		F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */; };
 		F8E6CFB02D427F1C00EEE39E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */; };
 		F8E6CFB22D427F1C00EEE39E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFB12D427F1C00EEE39E /* Item.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F833E1722D4D18BA0035197F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F833E1742D4D18F00035197F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F8E6CFAA2D427F1C00EEE39E /* GlucoseFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseFitApp.swift; sourceTree = "<group>"; };
 		F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,8 +60,10 @@
 				F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */,
 				F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */,
 				F8E6CFB12D427F1C00EEE39E /* Item.swift */,
+				F833E1722D4D18BA0035197F /* SettingsView.swift */,
 				F8E6CFB32D427F1D00EEE39E /* Assets.xcassets */,
 				F8E6CFB52D427F1D00EEE39E /* Preview Content */,
+				F833E1742D4D18F00035197F /* HomeView.swift */,
 			);
 			path = GlucoseFit;
 			sourceTree = "<group>";
@@ -141,7 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E6CFB02D427F1C00EEE39E /* ContentView.swift in Sources */,
+				F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */,
 				F8E6CFB22D427F1C00EEE39E /* Item.swift in Sources */,
+				F833E1752D4D18F00035197F /* HomeView.swift in Sources */,
 				F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

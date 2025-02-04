@@ -2,19 +2,24 @@
 //  DoseCalculator.swift
 //  GlucoseFit
 //
-//  Created by Eric Meyer on 1/31/25.
-//
 
 import Foundation
 
 struct DoseCalculator {
-    let insulinToCarbRatio: Double
-    let correctionDoseFactor: Double
-    let targetGlucose: Double
-    
+    // Reference global settings
+    let settings = Settings.shared
+
     func calculateDose(carbs: Double, glucose: Double) -> Double {
+        guard let insulinToCarbRatio = Double(settings.insulinToCarbRatio),
+              let correctionDoseFactor = Double(settings.correctionDose),
+              let targetGlucose = Double(settings.targetGlucose) else {
+            return 0.0 // Return 0 if settings are not valid numbers
+        }
+
         let carbDose = carbs / insulinToCarbRatio
         let correctionDose = max(0, (glucose - targetGlucose) / correctionDoseFactor)
+
         return carbDose + correctionDose
     }
 }
+

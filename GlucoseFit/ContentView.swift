@@ -9,7 +9,7 @@ struct ContentView: View {
             HomeView().tabItem {
                 Label("Home", systemImage: "house")
             }
-            Spacer().tabItem {
+            DoseCalculatorView().tabItem {
                 Label("Dose Calculator", systemImage: "syringe.fill")
             }
             Spacer().tabItem {

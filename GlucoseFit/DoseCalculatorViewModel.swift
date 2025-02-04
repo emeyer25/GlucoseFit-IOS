@@ -1,33 +1,25 @@
+//
+//  DoseCalculatorViewModel.swift
+//  GlucoseFit
+//
 
 import Foundation
 
 class DoseCalculatorViewModel: ObservableObject {
-    @Published var selectedMeal: String = "Breakfast"
-    @Published var customCarbs: String = ""
+    @Published var carbs: String = ""
     @Published var glucoseLevel: String = ""
-    
-    let mealOptions = ["Breakfast", "Lunch", "Dinner", "Snack", "Custom"]
-    let carbPresets: [String: Int] = [
-        "Breakfast": 45,
-        "Lunch": 60,
-        "Dinner": 65,
-        "Snack": 20
-    ]
-    
-    // Reference to SettingsViewModel (so it gets insulin ratio & correction dose)
-    @Published var settings: SettingsViewModel
-    
-    init(settings: SettingsViewModel) {
-        self.settings = settings
-    }
+    @Published var suggestedDose: Double = 0.0
 
-    var suggestedDose: Double {
-        let carbs = selectedMeal == "Custom" ? Double(customCarbs) ?? 0 : Double(carbPresets[selectedMeal] ?? 0)
-        let glucose = Double(glucoseLevel) ?? settings.targetGlucose
+    private let doseCalculator = DoseCalculator() // Uses Settings.shared automatically
 
-        let carbDose = carbs / settings.insulinToCarbRatio
-        let correctionDose = max(0, (glucose - settings.targetGlucose) / settings.correctionDoseFactor)
-        
-        return carbDose + correctionDose
+    func calculateDose() {
+        guard let carbsValue = Double(carbs),
+              let glucoseValue = Double(glucoseLevel) else {
+            suggestedDose = 0.0
+            return
+        }
+
+        suggestedDose = doseCalculator.calculateDose(carbs: carbsValue, glucose: glucoseValue)
     }
 }
+

@@ -9,30 +9,32 @@
 /* Begin PBXBuildFile section */
 		F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1722D4D18BA0035197F /* SettingsView.swift */; };
 		F833E1752D4D18F00035197F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1742D4D18F00035197F /* HomeView.swift */; };
+		F8C159372D524FCD004477C4 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C159362D524FCD004477C4 /* CalendarView.swift */; };
+		F8C159392D525044004477C4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C159382D525044004477C4 /* Settings.swift */; };
+		F8C1593B2D526424004477C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C1593A2D526424004477C4 /* Item.swift */; };
 		F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */; };
 		F8E6CFB02D427F1C00EEE39E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */; };
-		F8E6CFB22D427F1C00EEE39E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFB12D427F1C00EEE39E /* Item.swift */; };
 		F8E6CFB42D427F1D00EEE39E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E6CFB32D427F1D00EEE39E /* Assets.xcassets */; };
 		F8E6CFB72D427F1D00EEE39E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E6CFB62D427F1D00EEE39E /* Preview Assets.xcassets */; };
 		F8F247A32D4D4FB700C9CD9C /* DoseCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */; };
 		F8F247A52D4D512000C9CD9C /* DoseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */; };
 		F8F247A72D4D51E700C9CD9C /* DoseCalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */; };
-		F8F247A92D4D53EA00C9CD9C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F833E1722D4D18BA0035197F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F833E1742D4D18F00035197F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F8C159362D524FCD004477C4 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		F8C159382D525044004477C4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		F8C1593A2D526424004477C4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F8E6CFAA2D427F1C00EEE39E /* GlucoseFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseFitApp.swift; sourceTree = "<group>"; };
 		F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F8E6CFB12D427F1C00EEE39E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F8E6CFB32D427F1D00EEE39E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8E6CFB62D427F1D00EEE39E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculatorView.swift; sourceTree = "<group>"; };
 		F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculator.swift; sourceTree = "<group>"; };
 		F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseCalculatorViewModel.swift; sourceTree = "<group>"; };
-		F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +68,14 @@
 			isa = PBXGroup;
 			children = (
 				F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */,
+				F8C1593A2D526424004477C4 /* Item.swift */,
 				F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */,
-				F8E6CFB12D427F1C00EEE39E /* Item.swift */,
+				F8C159382D525044004477C4 /* Settings.swift */,
 				F833E1722D4D18BA0035197F /* SettingsView.swift */,
-				F8F247A82D4D53EA00C9CD9C /* SettingsViewModel.swift */,
 				F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */,
 				F8F247A62D4D51E700C9CD9C /* DoseCalculatorViewModel.swift */,
 				F8F247A42D4D512000C9CD9C /* DoseCalculator.swift */,
+				F8C159362D524FCD004477C4 /* CalendarView.swift */,
 				F8E6CFB32D427F1D00EEE39E /* Assets.xcassets */,
 				F8E6CFB52D427F1D00EEE39E /* Preview Content */,
 				F833E1742D4D18F00035197F /* HomeView.swift */,
@@ -158,15 +161,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C1593B2D526424004477C4 /* Item.swift in Sources */,
+				F8C159372D524FCD004477C4 /* CalendarView.swift in Sources */,
 				F8E6CFB02D427F1C00EEE39E /* ContentView.swift in Sources */,
 				F8F247A72D4D51E700C9CD9C /* DoseCalculatorViewModel.swift in Sources */,
 				F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */,
-				F8E6CFB22D427F1C00EEE39E /* Item.swift in Sources */,
 				F8F247A32D4D4FB700C9CD9C /* DoseCalculatorView.swift in Sources */,
 				F833E1752D4D18F00035197F /* HomeView.swift in Sources */,
 				F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */,
 				F8F247A52D4D512000C9CD9C /* DoseCalculator.swift in Sources */,
-				F8F247A92D4D53EA00C9CD9C /* SettingsViewModel.swift in Sources */,
+				F8C159392D525044004477C4 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

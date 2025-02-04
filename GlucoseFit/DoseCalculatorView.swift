@@ -1,59 +1,49 @@
+//
+//  DoseCalculatorView.swift
+//  GlucoseFit
+//
 
 import SwiftUI
 
 public struct DoseCalculatorView: View {
-    @StateObject private var settingsViewModel = SettingsViewModel() // Shared Settings
-    @StateObject private var viewModel: DoseCalculatorViewModel
-
-    public init() {
-        let settings = SettingsViewModel()
-        _viewModel = StateObject(wrappedValue: DoseCalculatorViewModel(settings: settings))
-    }
+    @StateObject private var viewModel = DoseCalculatorViewModel()
 
     public var body: some View {
         VStack {
-            Text("Dose Calculator")
-                .font(.custom("Inter", size: 40))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.black)
-                .padding(.bottom, 20)
+            Text("Insulin Dose Calculator")
+                .font(.title)
+                .bold()
+                .padding()
 
-            VStack(alignment: .leading, spacing: 20) {
-                
-                // Meal selection picker
-                Text("Select Meal")
+            VStack(alignment: .leading, spacing: 15) {
+                // Carbs Input
+                Text("Carbohydrates (g)")
                     .font(.headline)
-                Picker("Meal", selection: $viewModel.selectedMeal) {
-                    ForEach(viewModel.mealOptions, id: \.self) { meal in
-                        Text(meal)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-
-                // Carbs input
-                if viewModel.selectedMeal == "Custom" {
-                    Text("Enter Carbohydrates (g)")
-                        .font(.headline)
-                    TextField("Carbs", text: $viewModel.customCarbs)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .keyboardType(.numberPad)
-                } else {
-                    Text("Carbohydrates: \(viewModel.carbPresets[viewModel.selectedMeal] ?? 0)g")
-                        .font(.headline)
-                }
-
-                // Glucose input
-                Text("Enter Glucose Level (mg/dL)")
-                    .font(.headline)
-                TextField("Glucose Level", text: $viewModel.glucoseLevel)
+                TextField("Enter carbs", text: $viewModel.carbs)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
 
-                // Suggested Dose Display
+                // Glucose Input
+                Text("Glucose Level (mg/dL)")
+                    .font(.headline)
+                TextField("Enter glucose", text: $viewModel.glucoseLevel)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.decimalPad)
+
+                // Calculate Button
+                Button("Calculate Dose") {
+                    viewModel.calculateDose()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+
+                // Display Suggested Dose
                 Text("Suggested Insulin Dose")
                     .font(.headline)
                     .padding(.top, 10)
-
                 Text("\(viewModel.suggestedDose, specifier: "%.1f") units")
                     .font(.largeTitle)
                     .bold()
@@ -62,7 +52,6 @@ public struct DoseCalculatorView: View {
                     .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
                     .frame(maxWidth: .infinity)
-                
             }
             .padding()
             .background(Color.white.opacity(0.7))
@@ -81,7 +70,6 @@ public struct DoseCalculatorView: View {
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
         )
-        .border(Color.black)
     }
 }
 

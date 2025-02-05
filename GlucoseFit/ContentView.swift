@@ -12,7 +12,7 @@ struct ContentView: View {
             DoseCalculatorView().tabItem {
                 Label("Dose Calculator", systemImage: "syringe.fill")
             }
-            Spacer().tabItem {
+            CalendarView().tabItem {
                 Label("Calendar", systemImage: "calendar")
             }
         }

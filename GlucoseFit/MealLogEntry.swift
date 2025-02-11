@@ -21,21 +21,21 @@ class MealLogEntry {
         self.carbs = carbs
         self.mealType = mealType
     }
-    
-    // ✅ Function to Add a New Meal Entry
+
+    // ✅ Add a New Meal Entry
     static func addEntry(foodName: String, calories: Double, carbs: Double, mealType: String, context: ModelContext) {
         let newEntry = MealLogEntry(foodName: foodName, calories: calories, carbs: carbs, mealType: mealType)
         context.insert(newEntry)
     }
 
-    // ✅ Function to Update an Existing Meal Entry
+    // ✅ Update an Existing Meal Entry
     func updateEntry(foodName: String, calories: Double, carbs: Double) {
         self.foodName = foodName
         self.calories = calories
         self.carbs = carbs
     }
 
-    // ✅ Function to Delete a Meal Entry
+    // ✅ Delete a Meal Entry
     static func deleteEntry(entry: MealLogEntry, context: ModelContext) {
         context.delete(entry)
     }

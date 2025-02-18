@@ -6,32 +6,68 @@ struct MealLogView: View {
     @Environment(\.dismiss) private var dismiss
     
     var mealName: String
-    @State private var carbs: String = ""
-    @State private var calories: String = ""
+    @Query private var mealLogs: [MealLogEntry] // Fetch all meal logs
+    
+    @State private var showAddFoodView = false
+    
+    // Filter meal logs to get the current meal's foods
+    var currentMealFoods: [FoodItem] {
+        mealLogs.first { $0.mealName == mealName }?.foods ?? []
+    }
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Add Food to \(mealName)")
+            Text("\(mealName) Meal")
                 .font(.largeTitle)
                 .bold()
                 .padding()
             
-            TextField("Carbs (g)", text: $carbs)
-                .keyboardType(.decimalPad)
-                .padding()
-                .background(Color.white.opacity(0.8))
-                .cornerRadius(10)
-                .padding(.horizontal)
+            if currentMealFoods.isEmpty {
+                Text("No foods added yet.")
+                    .foregroundColor(.gray)
+                    .padding()
+            } else {
+                List {
+                    ForEach(currentMealFoods, id: \.name) { food in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(food.name)
+                                    .font(.headline)
+                                Text("\(food.carbs, specifier: "%.1f")g carbs, \(food.calories, specifier: "%.1f") cal")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            Button(action: {
+                                removeFoodItem(food)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                }
+            }
             
-            TextField("Calories", text: $calories)
-                .keyboardType(.decimalPad)
-                .padding()
-                .background(Color.white.opacity(0.8))
-                .cornerRadius(10)
-                .padding(.horizontal)
+            Button(action: { showAddFoodView.toggle() }) {
+                Text("Add Food")
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+            }
+            .sheet(isPresented: $showAddFoodView) {
+                AddFoodView { newFood in
+                    addFoodItem(newFood)
+                }
+            }
             
             Button(action: saveMealLog) {
-                Text("Save")
+                Text("Save Meal")
                     .font(.title2)
                     .bold()
                     .foregroundColor(.white)
@@ -53,20 +89,25 @@ struct MealLogView: View {
             startPoint: UnitPoint(x: 0.02, y: 0.61),
             endPoint: UnitPoint(x: 1.01, y: 0.61)
         )
-        .edgesIgnoringSafeArea(.all)
-   ) }
+        .edgesIgnoringSafeArea(.all))
+    }
+    
+    private func addFoodItem(_ food: FoodItem) {
+        if let mealLog = mealLogs.first(where: { $0.mealName == mealName }) {
+            mealLog.foods.append(food)
+        } else {
+            let newMealLog = MealLogEntry(mealName: mealName, foods: [food], date: Date())
+            modelContext.insert(newMealLog)
+        }
+    }
+    
+    private func removeFoodItem(_ food: FoodItem) {
+        if let mealLog = mealLogs.first(where: { $0.mealName == mealName }) {
+            mealLog.foods.removeAll { $0.name == food.name }
+        }
+    }
     
     private func saveMealLog() {
-        guard let carbsValue = Double(carbs), let caloriesValue = Double(calories) else { return }
-        
-        let newMealLog = MealLogEntry(mealName: mealName, carbs: carbsValue, calories: caloriesValue, date: Date())
-        modelContext.insert(newMealLog)
-        
         dismiss()
     }
 }
-                    
-                    #Preview {
-                        HomeView()
-                            .modelContainer(for: MealLogEntry.self) // Provide a preview container
-                    }

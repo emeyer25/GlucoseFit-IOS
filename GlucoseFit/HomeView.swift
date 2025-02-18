@@ -7,8 +7,11 @@ public struct HomeView: View {
 
     // 🔹 Calculate logged calories dynamically
     var loggedCalories: Double {
-        mealLogs.reduce(0) { $0 + $1.calories }
+        mealLogs.reduce(0) { total, meal in
+            total + meal.foods.reduce(0) { $0 + $1.calories }
+        }
     }
+
 
     var remainingCalories: Double {
         let totalCalories = settings.computedFinalCalories
@@ -88,5 +91,5 @@ private func mealSection(title: String) -> some View {
 
 #Preview {
     HomeView()
-        .modelContainer(for: MealLogEntry.self) // Provide a preview container
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self]) // Provide a preview container
 }

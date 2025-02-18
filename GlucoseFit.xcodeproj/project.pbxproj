@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8010C4E2D64CF80008577A4 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8010C4D2D64CF80008577A4 /* AddFoodView.swift */; };
 		F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1722D4D18BA0035197F /* SettingsView.swift */; };
 		F833E1752D4D18F00035197F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1742D4D18F00035197F /* HomeView.swift */; };
 		F8ADF6502D52A4D500320CAC /* MealLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F8010C4D2D64CF80008577A4 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
 		F833E1722D4D18BA0035197F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F833E1742D4D18F00035197F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealLogEntry.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				F833E1742D4D18F00035197F /* HomeView.swift */,
 				F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */,
 				F8ADF6512D52A4F800320CAC /* MealLogView.swift */,
+				F8010C4D2D64CF80008577A4 /* AddFoodView.swift */,
 			);
 			path = GlucoseFit;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				F8F247A72D4D51E700C9CD9C /* DoseCalculatorViewModel.swift in Sources */,
 				F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */,
 				F8F247A32D4D4FB700C9CD9C /* DoseCalculatorView.swift in Sources */,
+				F8010C4E2D64CF80008577A4 /* AddFoodView.swift in Sources */,
 				F8C1593F2D529DFB004477C4 /* CalendarView.swift in Sources */,
 				F833E1752D4D18F00035197F /* HomeView.swift in Sources */,
 				F8ADF6502D52A4D500320CAC /* MealLogEntry.swift in Sources */,

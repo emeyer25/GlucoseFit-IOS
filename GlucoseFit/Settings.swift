@@ -80,7 +80,7 @@ class Settings: ObservableObject {
         self.finalCalories = recommendedCalories
     }
 
-    // ✅ Calculate Recommended Calories using Mifflin-St Jeor Equation
+    //  Calculate Recommended Calories using Mifflin-St Jeor Equation
     var recommendedCalories: Double {
         guard let weightLbs = Double(weight), weightLbs > 0,
               let heightFt = Double(heightFeet), heightFt >= 0,
@@ -115,7 +115,6 @@ class Settings: ObservableObject {
             adjustedCalories = tdee
         }
 
-        // ✅ Ensure UI updates
         DispatchQueue.main.async {
             self.finalCalories = adjustedCalories
         }
@@ -123,7 +122,6 @@ class Settings: ObservableObject {
         return adjustedCalories
     }
 
-    // ✅ Get final calorie intake (user can override recommendation)
     var computedFinalCalories: Double {
         return Double(manualCalories) ?? finalCalories
     }

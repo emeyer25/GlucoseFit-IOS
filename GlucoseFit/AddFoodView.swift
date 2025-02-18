@@ -5,7 +5,7 @@ struct AddFoodView: View {
     @State private var foodName: String = ""
     @State private var carbs: String = ""
     @State private var calories: String = ""
-    
+
     var onAdd: (FoodItem) -> Void
     
     var body: some View {
@@ -50,7 +50,7 @@ struct AddFoodView: View {
         guard let carbsValue = Double(carbs), let caloriesValue = Double(calories), !foodName.isEmpty else { return }
         
         let newFood = FoodItem(name: foodName, carbs: carbsValue, calories: caloriesValue)
-        onAdd(newFood)
+        onAdd(newFood) // ✅ Correctly passes data back to `MealLogView`
         
         dismiss()
     }

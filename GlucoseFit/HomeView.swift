@@ -35,7 +35,7 @@ public struct HomeView: View {
                 VStack(spacing: 20) {
                     Spacer()
 
-                    // 🔥 Calorie Summary
+                    //  Calorie Summary
                     VStack {
                         Text("Calories")
                             .font(Font.custom("Inter", size: 40))

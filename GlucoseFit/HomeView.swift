@@ -1,14 +1,9 @@
-//
-//  HomeView.swift
-//  GlucoseFit
-//
-
 import SwiftUI
 import SwiftData
 
 public struct HomeView: View {
     @StateObject private var settings = Settings.shared
-    @Query private var mealLogs: [MealLogEntry] // Fetch all meal logs
+    @Query private var mealLogs: [MealLogEntry] // Fetch all meal logs using SwiftData
 
     // 🔹 Calculate logged calories dynamically
     var loggedCalories: Double {
@@ -60,7 +55,7 @@ public struct HomeView: View {
                     .shadow(radius: 5)
                     .padding(.horizontal)
 
-                    // 🍽 Meal Sections (Clickable)
+                    // � Meal Sections (Clickable)
                     mealSection(title: "Breakfast")
                     mealSection(title: "Lunch")
                     mealSection(title: "Dinner")
@@ -93,4 +88,5 @@ private func mealSection(title: String) -> some View {
 
 #Preview {
     HomeView()
+        .modelContainer(for: MealLogEntry.self) // Provide a preview container
 }

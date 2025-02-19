@@ -31,48 +31,48 @@ public struct HomeView: View {
                     endPoint: UnitPoint(x: 1.01, y: 0.61)
                 )
                 .edgesIgnoringSafeArea(.all)
-
-                VStack(spacing: 15) {
-                    Spacer()
-
-                    VStack {
-                        Text(selectedDate, formatter: dateFormatter)
-                            .font(Font.custom("Inter", size: 24))
-                            .bold()
-                            .foregroundColor(.black)
+                ScrollView {
+                    VStack(spacing: 15) {
+                        Spacer()
                         
-                        Text("Calories")
-                            .font(Font.custom("Inter", size: 40))
-                            .bold()
-                            .foregroundColor(.black)
-
-                        Text("\(Int(settings.computedFinalCalories)) - \(Int(loggedCalories))")
-                            .font(Font.custom("Inter", size: 24))
-                            .foregroundColor(.gray)
-
-                        Text("\(Int(remainingCalories))")
-                            .font(Font.custom("Inter", size: 40))
-                            .bold()
-                            .foregroundColor(.black)
+                        VStack {
+                            Text(selectedDate, formatter: dateFormatter)
+                                .font(Font.custom("Inter", size: 24))
+                                .bold()
+                                .foregroundColor(.black)
+                            
+                            Text("Calories")
+                                .font(Font.custom("Inter", size: 40))
+                                .bold()
+                                .foregroundColor(.black)
+                            
+                            Text("\(Int(settings.computedFinalCalories)) - \(Int(loggedCalories))")
+                                .font(Font.custom("Inter", size: 24))
+                                .foregroundColor(.gray)
+                            
+                            Text("\(Int(remainingCalories))")
+                                .font(Font.custom("Inter", size: 40))
+                                .bold()
+                                .foregroundColor(.black)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white.opacity(0.7))
+                        .cornerRadius(15)
+                        .shadow(radius: 5)
+                        .padding(.horizontal)
+                        
+                        mealSection(title: "Breakfast", selectedDate: selectedDate)
+                        mealSection(title: "Lunch", selectedDate: selectedDate)
+                        mealSection(title: "Dinner", selectedDate: selectedDate)
+                        mealSection(title: "Snack", selectedDate: selectedDate)
+                        
+                        Spacer()
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white.opacity(0.7))
-                    .cornerRadius(15)
-                    .shadow(radius: 5)
-                    .padding(.horizontal)
-
-                    mealSection(title: "Breakfast", selectedDate: selectedDate)
-                    mealSection(title: "Lunch", selectedDate: selectedDate)
-                    mealSection(title: "Dinner", selectedDate: selectedDate)
-                    mealSection(title: "Snack", selectedDate: selectedDate)
-
-                    Spacer()
                 }
             }
         }
     }
-
     private func mealSection(title: String, selectedDate: Date) -> some View {
         let meals = mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) && $0.mealName == title }
         let totalCarbs = meals.reduce(0) { $0 + $1.foods.reduce(0) { $0 + $1.carbs } }

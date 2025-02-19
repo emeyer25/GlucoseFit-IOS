@@ -5,8 +5,8 @@ import SwiftData
 struct GlucoseFitApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            CalendarView() // Start with CalendarView
         }
-        .modelContainer(for: MealLogEntry.self) // Set up SwiftData container
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self]) // Set up SwiftData container
     }
 }

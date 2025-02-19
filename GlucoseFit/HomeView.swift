@@ -3,27 +3,25 @@ import SwiftData
 
 public struct HomeView: View {
     @StateObject private var settings = Settings.shared
-    @Query private var mealLogs: [MealLogEntry] // Fetch all meal logs using SwiftData
+    @Query private var mealLogs: [MealLogEntry]
 
-    // 🔹 Track the selected date for meal logs
-    @State private var selectedDate = Date()
+    var selectedDate: Date // Accept selectedDate from CalendarView
 
-    // 🔹 Calculate logged calories dynamically
     var loggedCalories: Double {
-        mealLogs.reduce(0) { total, meal in
-            total + meal.foods.reduce(0) { $0 + $1.calories }
-        }
+        mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+            .reduce(0) { total, meal in
+                total + meal.foods.reduce(0) { $0 + $1.calories }
+            }
     }
 
     var remainingCalories: Double {
         let totalCalories = settings.computedFinalCalories
-        return max(0, totalCalories - loggedCalories) // Prevents negative values
+        return max(0, totalCalories - loggedCalories)
     }
 
     public var body: some View {
         NavigationView {
             ZStack {
-                // 🔹 Background Gradient
                 LinearGradient(
                     stops: [
                         Gradient.Stop(color: Color(red: 0.33, green: 0.62, blue: 0.68), location: 0.00),
@@ -33,17 +31,22 @@ public struct HomeView: View {
                     endPoint: UnitPoint(x: 1.01, y: 0.61)
                 )
                 .edgesIgnoringSafeArea(.all)
-                
+
                 VStack(spacing: 20) {
                     Spacer()
 
-                    //  Calorie Summary
                     VStack {
+                        
+                        Text(selectedDate, formatter: dateFormatter)
+                            .font(Font.custom("Inter", size: 24))
+                            .bold()
+                            .foregroundColor(.black)
+                        
                         Text("Calories")
                             .font(Font.custom("Inter", size: 40))
                             .bold()
                             .foregroundColor(.black)
-                        
+
                         Text("\(Int(settings.computedFinalCalories)) - \(Int(loggedCalories))")
                             .font(Font.custom("Inter", size: 24))
                             .foregroundColor(.gray)
@@ -60,7 +63,6 @@ public struct HomeView: View {
                     .shadow(radius: 5)
                     .padding(.horizontal)
 
-                    // � Meal Sections (Clickable)
                     mealSection(title: "Breakfast", selectedDate: selectedDate)
                     mealSection(title: "Lunch", selectedDate: selectedDate)
                     mealSection(title: "Dinner", selectedDate: selectedDate)
@@ -73,7 +75,6 @@ public struct HomeView: View {
     }
 }
 
-// 🔹 Clickable Meal Sections that Open `MealLogView`
 private func mealSection(title: String, selectedDate: Date) -> some View {
     NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
         VStack(alignment: .leading, spacing: 8) {
@@ -91,7 +92,13 @@ private func mealSection(title: String, selectedDate: Date) -> some View {
     }
 }
 
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    return formatter
+}()
+
 #Preview {
-    HomeView()
+    HomeView(selectedDate: Date())
         .modelContainer(for: [MealLogEntry.self, FoodItem.self]) // Provide a preview container
 }

@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab = 1
-    
+    @State private var selectedDate = Date()
+
     var body: some View {
         TabView(selection: $selectedTab) {
             SettingsView()
@@ -11,7 +12,7 @@ struct ContentView: View {
                 }
                 .tag(0)
 
-            HomeView()
+            HomeView(selectedDate: selectedDate)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
@@ -34,5 +35,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: MealLogEntry.self)
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self])
 }

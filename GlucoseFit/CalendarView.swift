@@ -5,8 +5,6 @@ struct CalendarView: View {
     @State private var selectedDate = Date()
     @Query private var entries: [CalendarEntry]
     
-    @State private var navigateToMealLog = false
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -20,21 +18,19 @@ struct CalendarView: View {
                     endPoint: UnitPoint(x: 1.01, y: 0.61)
                 )
                 .edgesIgnoringSafeArea(.all)
-                
+
                 VStack {
-                    //  Calendar Picker
+                    // 📅 Calendar Picker
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)
                         .padding()
                         .background(Color.white.opacity(0.7))
                         .cornerRadius(10)
                         .padding(.horizontal)
-                    
-                    //  Navigate to MealLogView
-                    Button(action: {
-                        navigateToMealLog = true
-                    }) {
-                        Text("View Meal Log")
+
+                    // 🚀 Navigate to HomeView for selected date
+                    NavigationLink(destination: HomeView(selectedDate: selectedDate)) {
+                        Text("View Details for Selected Day")
                             .font(.title2)
                             .bold()
                             .foregroundColor(.white)
@@ -44,11 +40,6 @@ struct CalendarView: View {
                             .cornerRadius(10)
                             .padding(.horizontal)
                     }
-                    .background(
-                        NavigationLink(destination: MealLogView(selectedDate: selectedDate), isActive: $navigateToMealLog) {
-                            EmptyView()
-                        }
-                    )
                 }
                 .navigationTitle("Calendar")
                 .padding(.top, 20)

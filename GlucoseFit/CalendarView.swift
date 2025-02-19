@@ -22,7 +22,7 @@ struct CalendarView: View {
                 .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    // 📅 Calendar Picker
+                    //  Calendar Picker
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)
                         .padding()
@@ -30,8 +30,25 @@ struct CalendarView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
                     
-                    
-                
+                    //  Navigate to MealLogView
+                    Button(action: {
+                        navigateToMealLog = true
+                    }) {
+                        Text("View Meal Log")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                    .background(
+                        NavigationLink(destination: MealLogView(selectedDate: selectedDate), isActive: $navigateToMealLog) {
+                            EmptyView()
+                        }
+                    )
                 }
                 .navigationTitle("Calendar")
                 .padding(.top, 20)

@@ -5,13 +5,15 @@ public struct HomeView: View {
     @StateObject private var settings = Settings.shared
     @Query private var mealLogs: [MealLogEntry] // Fetch all meal logs using SwiftData
 
+    // 🔹 Track the selected date for meal logs
+    @State private var selectedDate = Date()
+
     // 🔹 Calculate logged calories dynamically
     var loggedCalories: Double {
         mealLogs.reduce(0) { total, meal in
             total + meal.foods.reduce(0) { $0 + $1.calories }
         }
     }
-
 
     var remainingCalories: Double {
         let totalCalories = settings.computedFinalCalories
@@ -59,10 +61,10 @@ public struct HomeView: View {
                     .padding(.horizontal)
 
                     // � Meal Sections (Clickable)
-                    mealSection(title: "Breakfast")
-                    mealSection(title: "Lunch")
-                    mealSection(title: "Dinner")
-                    mealSection(title: "Snack")
+                    mealSection(title: "Breakfast", selectedDate: selectedDate)
+                    mealSection(title: "Lunch", selectedDate: selectedDate)
+                    mealSection(title: "Dinner", selectedDate: selectedDate)
+                    mealSection(title: "Snack", selectedDate: selectedDate)
 
                     Spacer()
                 }
@@ -72,8 +74,8 @@ public struct HomeView: View {
 }
 
 // 🔹 Clickable Meal Sections that Open `MealLogView`
-private func mealSection(title: String) -> some View {
-    NavigationLink(destination: MealLogView(mealName: title)) {
+private func mealSection(title: String, selectedDate: Date) -> some View {
+    NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(Font.custom("Inter", size: 32))

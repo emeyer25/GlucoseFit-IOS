@@ -32,11 +32,10 @@ public struct HomeView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
 
-                VStack(spacing: 20) {
+                VStack(spacing: 15) {
                     Spacer()
 
                     VStack {
-                        
                         Text(selectedDate, formatter: dateFormatter)
                             .font(Font.custom("Inter", size: 24))
                             .bold()
@@ -73,22 +72,34 @@ public struct HomeView: View {
             }
         }
     }
-}
 
-private func mealSection(title: String, selectedDate: Date) -> some View {
-    NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(Font.custom("Inter", size: 32))
-                .bold()
-                .foregroundColor(.black)
+    private func mealSection(title: String, selectedDate: Date) -> some View {
+        let meals = mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) && $0.mealName == title }
+        let totalCarbs = meals.reduce(0) { $0 + $1.foods.reduce(0) { $0 + $1.carbs } }
+        let insulinUnits = totalCarbs / (Double(settings.insulinToCarbRatio) ?? 1)
+
+        return NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(Font.custom("Inter", size: 24))
+                    .bold()
+                    .foregroundColor(.black)
+                
+                Text("Carbs: \(Int(totalCarbs))g")
+                    .font(Font.custom("Inter", size: 18))
+                    .foregroundColor(.gray)
+                
+                Text("Units: \(String(format: "%.1f", insulinUnits))")
+                    .font(Font.custom("Inter", size: 18))
+                    .foregroundColor(.gray)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.white.opacity(0.8))
+            .cornerRadius(15)
+            .shadow(radius: 5)
+            .padding(.horizontal)
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white.opacity(0.8))
-        .cornerRadius(15)
-        .shadow(radius: 5)
-        .padding(.horizontal)
     }
 }
 

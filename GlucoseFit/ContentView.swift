@@ -1,8 +1,10 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State private var selectedTab = 1
     @State private var selectedDate = Date()
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -16,7 +18,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-                .tag(1) // Home is the default tab
+                .tag(1)
 
             DoseCalculatorView()
                 .tabItem {

@@ -7,28 +7,28 @@ struct AddFoodView: View {
     @State private var calories: String = ""
 
     var onAdd: (FoodItem) -> Void
-    
+
     var body: some View {
         VStack(spacing: 20) {
             Text("Add Food")
                 .font(.largeTitle)
                 .bold()
                 .padding()
-            
+
             TextField("Food Name", text: $foodName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
-            
+
             TextField("Carbs (g)", text: $carbs)
                 .keyboardType(.decimalPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
-            
+
             TextField("Calories", text: $calories)
                 .keyboardType(.decimalPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
-            
+
             Button(action: addFood) {
                 Text("Add")
                     .font(.title2)
@@ -40,18 +40,19 @@ struct AddFoodView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
             }
-            
+
             Spacer()
         }
         .padding()
     }
-    
+
     private func addFood() {
         guard let carbsValue = Double(carbs), let caloriesValue = Double(calories), !foodName.isEmpty else { return }
-        
+
         let newFood = FoodItem(name: foodName, carbs: carbsValue, calories: caloriesValue)
-        onAdd(newFood) // ✅ Correctly passes data back to `MealLogView`
-        
+
+        onAdd(newFood) 
+
         dismiss()
     }
 }

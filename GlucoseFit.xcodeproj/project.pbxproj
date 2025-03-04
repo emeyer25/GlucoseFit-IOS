@@ -10,6 +10,7 @@
 		F8010C4E2D64CF80008577A4 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8010C4D2D64CF80008577A4 /* AddFoodView.swift */; };
 		F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1722D4D18BA0035197F /* SettingsView.swift */; };
 		F833E1752D4D18F00035197F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1742D4D18F00035197F /* HomeView.swift */; };
+		F848F4C22D67ABE1006FDA20 /* SavedFoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F848F4C12D67ABE1006FDA20 /* SavedFoodsView.swift */; };
 		F84918CA2D663AD90082DFF2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84918C92D663AD90082DFF2 /* DataManager.swift */; };
 		F8ADF6502D52A4D500320CAC /* MealLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */; };
 		F8ADF6522D52A4F800320CAC /* MealLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADF6512D52A4F800320CAC /* MealLogView.swift */; };
@@ -30,6 +31,7 @@
 		F8010C4D2D64CF80008577A4 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
 		F833E1722D4D18BA0035197F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F833E1742D4D18F00035197F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F848F4C12D67ABE1006FDA20 /* SavedFoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFoodsView.swift; sourceTree = "<group>"; };
 		F84918C92D663AD90082DFF2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealLogEntry.swift; sourceTree = "<group>"; };
 		F8ADF6512D52A4F800320CAC /* MealLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealLogView.swift; sourceTree = "<group>"; };
@@ -79,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */,
-				F8C1593A2D526424004477C4 /* Item.swift */,
 				F8E6CFAF2D427F1C00EEE39E /* ContentView.swift */,
+				F8C1593A2D526424004477C4 /* Item.swift */,
 				F8C159382D525044004477C4 /* Settings.swift */,
 				F833E1722D4D18BA0035197F /* SettingsView.swift */,
 				F8F247A22D4D4FB700C9CD9C /* DoseCalculatorView.swift */,
@@ -94,6 +96,7 @@
 				F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */,
 				F8ADF6512D52A4F800320CAC /* MealLogView.swift */,
 				F8010C4D2D64CF80008577A4 /* AddFoodView.swift */,
+				F848F4C12D67ABE1006FDA20 /* SavedFoodsView.swift */,
 			);
 			path = GlucoseFit;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */,
 				F8F247A32D4D4FB700C9CD9C /* DoseCalculatorView.swift in Sources */,
 				F8010C4E2D64CF80008577A4 /* AddFoodView.swift in Sources */,
+				F848F4C22D67ABE1006FDA20 /* SavedFoodsView.swift in Sources */,
 				F8C1593F2D529DFB004477C4 /* CalendarView.swift in Sources */,
 				F833E1752D4D18F00035197F /* HomeView.swift in Sources */,
 				F8ADF6502D52A4D500320CAC /* MealLogEntry.swift in Sources */,

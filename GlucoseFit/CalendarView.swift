@@ -20,7 +20,7 @@ struct CalendarView: View {
                 .edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    // 📅 Calendar Picker
+                    //  Calendar Picker
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)
                         .padding()
@@ -28,7 +28,7 @@ struct CalendarView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
 
-                    // 🚀 Navigate to HomeView for selected date
+                    //  Navigate to HomeView for selected date
                     NavigationLink(destination: HomeView(selectedDate: selectedDate)) {
                         Text("View Details for Selected Day")
                             .font(.title2)

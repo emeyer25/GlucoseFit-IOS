@@ -7,7 +7,7 @@ struct MealLogView: View {
     var selectedDate: Date
 
     @Query private var mealLogs: [MealLogEntry]
-    @Query private var savedFoods: [SavedFoodItem] // ✅ Only fetch explicitly saved foods
+    @Query private var savedFoods: [SavedFoodItem]
 
     @State private var showAddFoodView = false
     @State private var showSavedFoodsView = false
@@ -20,67 +20,92 @@ struct MealLogView: View {
     }
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text(mealName == nil ? "All Meals for \(selectedDate, formatter: dateFormatter)" : "\(mealName!) for \(selectedDate, formatter: dateFormatter)")
-                .font(.largeTitle)
-                .bold()
-                .padding()
+        ZStack {
+            LinearGradient(
+                stops: [
+                    Gradient.Stop(color: Color(red: 0.33, green: 0.62, blue: 0.68), location: 0.00),
+                    Gradient.Stop(color: Color(red: 0.6, green: 0.89, blue: 0.75), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.02, y: 0.61),
+                endPoint: UnitPoint(x: 1.01, y: 0.61)
+            )
+            .edgesIgnoringSafeArea(.all)
 
-            if mealsForSelectedDate.isEmpty {
-                Text("No meals logged for this day.")
-                    .foregroundColor(.gray)
+            VStack(spacing: 20) {
+                Text(mealName == nil ? "All Meals for \(selectedDate, formatter: dateFormatter)" : "\(mealName!) for \(selectedDate, formatter: dateFormatter)")
+                    .font(.largeTitle)
+                    .bold()
                     .padding()
-            } else {
-                List {
-                    ForEach(mealsForSelectedDate, id: \.mealName) { mealLog in
-                        Section(header: Text(mealLog.mealName)) {
-                            ForEach(mealLog.foods, id: \.name) { food in
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(food.name).font(.headline)
-                                        Text("\(food.carbs, specifier: "%.1f")g carbs, \(food.calories, specifier: "%.1f") cal")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+
+                if mealsForSelectedDate.isEmpty {
+                    Text("No meals logged for this day.")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List {
+                        ForEach(mealsForSelectedDate, id: \.mealName) { mealLog in
+                            Section(header: Text(mealLog.mealName)) {
+                                ForEach(mealLog.foods, id: \.name) { food in
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text(food.name).font(.headline)
+                                            Text("\(food.carbs, specifier: "%.1f")g carbs, \(food.calories, specifier: "%.1f") cal")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                        Spacer()
+
+                                        Button(action: {
+                                            removeFoodItem(food, from: mealLog)
+                                        }) {
+                                            Image(systemName: "trash")
+                                                .foregroundColor(.red)
+                                                .padding(.trailing, 10)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+
+                                        Button(action: {
+                                            saveFoodToSavedFoods(food)
+                                        }) {
+                                            Image(systemName: "plus.circle.fill")
+                                                .foregroundColor(.green)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
-                                    Spacer()
-                                    Button(action: { removeFoodItem(food, from: mealLog) }) {
-                                        Image(systemName: "trash").foregroundColor(.red)
-                                    }
-                                    Button(action: { saveFoodToSavedFoods(food) }) {
-                                        Image(systemName: "plus.circle.fill").foregroundColor(.green)
-                                    }
+                                    .contentShape(Rectangle())
                                 }
                             }
                         }
                     }
+                    .background(Color.clear)
                 }
-            }
 
-            Button(action: { showAddFoodView.toggle() }) {
-                Text("Add Food")
-                    .font(.title2).bold().foregroundColor(.white)
-                    .padding().frame(maxWidth: .infinity)
-                    .background(Color.green).cornerRadius(10)
-                    .padding(.horizontal)
-            }
-            .sheet(isPresented: $showAddFoodView) {
-                AddFoodView { newFood in addFoodToMealLog(newFood) }
-            }
+                Button(action: { showAddFoodView.toggle() }) {
+                    Text("Add Food")
+                        .font(.title2).bold().foregroundColor(.white)
+                        .padding().frame(maxWidth: .infinity)
+                        .background(Color.green).cornerRadius(10)
+                        .padding(.horizontal)
+                }
+                .sheet(isPresented: $showAddFoodView) {
+                    AddFoodView { newFood in addFoodToMealLog(newFood) }
+                }
 
-            Button(action: { showSavedFoodsView.toggle() }) {
-                Text("Add from Saved Foods")
-                    .font(.title2).bold().foregroundColor(.white)
-                    .padding().frame(maxWidth: .infinity)
-                    .background(Color.orange).cornerRadius(10)
-                    .padding(.horizontal)
-            }
-            .sheet(isPresented: $showSavedFoodsView) {
-                SavedFoodsView { selectedFood in addFoodToMealLog(selectedFood) }
-            }
+                Button(action: { showSavedFoodsView.toggle() }) {
+                    Text("Add from Saved Foods")
+                        .font(.title2).bold().foregroundColor(.white)
+                        .padding().frame(maxWidth: .infinity)
+                        .background(Color.orange).cornerRadius(10)
+                        .padding(.horizontal)
+                }
+                .sheet(isPresented: $showSavedFoodsView) {
+                    SavedFoodsView { selectedFood in addFoodToMealLog(selectedFood) }
+                }
 
-            Spacer()
+                Spacer()
+            }
+            .padding()
         }
-        .padding()
     }
 
     private func addFoodToMealLog(_ food: FoodItem) {
@@ -99,8 +124,9 @@ struct MealLogView: View {
     }
 
     private func saveFoodToSavedFoods(_ food: FoodItem) {
-        if !savedFoods.contains(where: { $0.name == food.name && $0.carbs == food.carbs && $0.calories == food.calories }) {
-            let savedFood = SavedFoodItem(name: food.name, carbs: food.carbs, calories: food.calories)
+        let savedFood = SavedFoodItem(name: food.name, carbs: food.carbs, calories: food.calories)
+        
+        if !savedFoods.contains(where: { $0.name == savedFood.name && $0.carbs == savedFood.carbs && $0.calories == savedFood.calories }) {
             modelContext.insert(savedFood)
         }
     }

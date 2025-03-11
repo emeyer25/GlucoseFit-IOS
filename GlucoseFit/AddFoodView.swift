@@ -54,7 +54,7 @@ struct AddFoodView: View {
         let newFood = FoodItem(name: foodName, carbs: carbsValue, calories: caloriesValue)
 
         modelContext.insert(newFood)
-
+        
         onAdd(newFood)
 
         dismiss()

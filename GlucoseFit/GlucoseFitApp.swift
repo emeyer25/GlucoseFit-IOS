@@ -25,7 +25,7 @@ struct GlucoseFitApp: App {
         }
         .modelContainer(
             for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self],
-            inMemory: true, // Set to false for production, true for development
+            inMemory: false, // Set to false for production, true for development
             isAutosaveEnabled: true
         )
     }

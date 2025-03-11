@@ -2,8 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct CalendarView: View {
+    
     @State private var selectedDate = Date()
     @Query private var entries: [CalendarEntry]
+    @Environment(\.modelContext) private var modelContext
+
     
     var body: some View {
         NavigationStack {

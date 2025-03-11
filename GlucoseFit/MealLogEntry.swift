@@ -31,7 +31,7 @@ final class SavedFoodItem {
 @Model
 final class MealLogEntry {
     var mealName: String
-    var foods: [FoodItem]
+    @Relationship var foods: [FoodItem]
     var date: Date
     
     init(mealName: String, foods: [FoodItem], date: Date) {
@@ -40,3 +40,4 @@ final class MealLogEntry {
         self.date = date
     }
 }
+

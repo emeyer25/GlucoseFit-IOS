@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 
+#if DEBUG
 struct DataManager {
     static func resetData(context: ModelContext) {
         let mealRequest = FetchDescriptor<MealLogEntry>()
@@ -19,3 +20,4 @@ struct DataManager {
         try? context.save()
     }
 }
+#endif

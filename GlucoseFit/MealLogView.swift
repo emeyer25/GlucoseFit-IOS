@@ -8,6 +8,8 @@ struct MealLogView: View {
 
     @Query private var mealLogs: [MealLogEntry]
     @Query private var savedFoods: [SavedFoodItem]
+    @Query private var foodItems: [FoodItem]
+
 
     @State private var showAddFoodView = false
     @State private var showSavedFoodsView = false

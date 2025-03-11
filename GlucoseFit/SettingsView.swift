@@ -7,6 +7,8 @@ import SwiftUI
 
 public struct SettingsView: View {
     @StateObject private var settings = Settings.shared
+    @Environment(\.modelContext) private var modelContext
+
 
     let genderOptions = ["Male", "Female"]
     let activityLevels = ["Sedentary", "Lightly Active", "Active", "Very Active"]

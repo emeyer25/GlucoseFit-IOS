@@ -4,6 +4,8 @@ import SwiftData
 public struct HomeView: View {
     @StateObject private var settings = Settings.shared
     @Query private var mealLogs: [MealLogEntry]
+    @Environment(\.modelContext) private var modelContext
+
 
     var selectedDate: Date // Accept selectedDate from CalendarView
 

@@ -6,7 +6,9 @@
 import SwiftUI
 
 public struct DoseCalculatorView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = DoseCalculatorViewModel()
+    
 
     public var body: some View {
         VStack {

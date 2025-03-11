@@ -3,10 +3,30 @@ import SwiftData
 
 @main
 struct GlucoseFitApp: App {
+    @State private var isSplashScreenVisible = true
+
     var body: some Scene {
         WindowGroup {
-            CalendarView() // Start with CalendarView
+            ZStack {
+                if isSplashScreenVisible {
+                    SplashScreenView()
+                        .transition(.opacity)
+                } else {
+                    ContentView()
+                }
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        isSplashScreenVisible = false
+                    }
+                }
+            }
         }
-        .modelContainer(for: [MealLogEntry.self, FoodItem.self]) // Set up SwiftData container
+        .modelContainer(
+            for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self],
+            inMemory: true, // Set to false for production, true for development
+            isAutosaveEnabled: true
+        )
     }
 }

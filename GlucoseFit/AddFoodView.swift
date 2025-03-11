@@ -2,6 +2,8 @@ import SwiftUI
 
 struct AddFoodView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext 
+
     @State private var foodName: String = ""
     @State private var carbs: String = ""
     @State private var calories: String = ""
@@ -51,7 +53,9 @@ struct AddFoodView: View {
 
         let newFood = FoodItem(name: foodName, carbs: carbsValue, calories: caloriesValue)
 
-        onAdd(newFood) 
+        modelContext.insert(newFood)
+
+        onAdd(newFood)
 
         dismiss()
     }

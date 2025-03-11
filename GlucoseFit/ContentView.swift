@@ -4,7 +4,7 @@ import SwiftData
 struct ContentView: View {
     @State private var selectedTab = 1
     @State private var selectedDate = Date()
-    @Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         TabView(selection: $selectedTab) {

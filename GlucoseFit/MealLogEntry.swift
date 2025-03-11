@@ -15,6 +15,20 @@ final class FoodItem {
 }
 
 @Model
+final class SavedFoodItem {
+    var name: String
+    var carbs: Double
+    var calories: Double
+
+    init(name: String, carbs: Double, calories: Double) {
+        self.name = name
+        self.carbs = carbs
+        self.calories = calories
+    }
+}
+
+
+@Model
 final class MealLogEntry {
     var mealName: String
     var foods: [FoodItem]

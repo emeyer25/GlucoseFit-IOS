@@ -6,39 +6,63 @@
 import Foundation
 
 class Settings: ObservableObject {
-    static let shared = Settings() // Singleton instance for app-wide settings
+    static let shared = Settings()
 
     // General Settings
     @Published var weight: String {
-        didSet { UserDefaults.standard.set(weight, forKey: "weight") }
+        didSet {
+            UserDefaults.standard.set(weight, forKey: "weight")
+            updateFinalCalories()
+        }
     }
 
     @Published var heightFeet: String {
-        didSet { UserDefaults.standard.set(heightFeet, forKey: "heightFeet") }
+        didSet {
+            UserDefaults.standard.set(heightFeet, forKey: "heightFeet")
+            updateFinalCalories()
+        }
     }
 
     @Published var heightInches: String {
-        didSet { UserDefaults.standard.set(heightInches, forKey: "heightInches") }
+        didSet {
+            UserDefaults.standard.set(heightInches, forKey: "heightInches")
+            updateFinalCalories()
+        }
     }
 
     @Published var age: String {
-        didSet { UserDefaults.standard.set(age, forKey: "age") }
+        didSet {
+            UserDefaults.standard.set(age, forKey: "age")
+            updateFinalCalories()
+        }
     }
 
     @Published var gender: String {
-        didSet { UserDefaults.standard.set(gender, forKey: "gender") }
+        didSet {
+            UserDefaults.standard.set(gender, forKey: "gender")
+            updateFinalCalories()
+        }
     }
 
     @Published var activityLevel: String {
-        didSet { UserDefaults.standard.set(activityLevel, forKey: "activityLevel") }
+        didSet {
+            UserDefaults.standard.set(activityLevel, forKey: "activityLevel")
+            updateFinalCalories()
+        }
     }
 
     @Published var goal: String {
-        didSet { UserDefaults.standard.set(goal, forKey: "goal") }
+        didSet {
+            UserDefaults.standard.set(goal, forKey: "goal")
+            updateFinalCalories()
+        }
     }
 
     @Published var manualCalories: String {
-        didSet { UserDefaults.standard.set(manualCalories, forKey: "manualCalories") }
+        didSet {
+            UserDefaults.standard.set(manualCalories, forKey: "manualCalories")
+            updateFinalCalories()
+        }
     }
 
     // Insulin Settings
@@ -50,20 +74,17 @@ class Settings: ObservableObject {
         didSet { UserDefaults.standard.set(correctionDose, forKey: "correctionDose") }
     }
 
-    // Target Glucose Level for correction dose calculation
     @Published var targetGlucose: String {
         didSet { UserDefaults.standard.set(targetGlucose, forKey: "targetGlucose") }
     }
 
-    // Holds the final calorie estimate (forces UI update)
     @Published var finalCalories: Double = 0.0 {
         didSet {
-            objectWillChange.send() // Ensure UI updates when this value changes
+            objectWillChange.send()
         }
     }
 
     init() {
-        // Load saved settings from UserDefaults
         self.weight = UserDefaults.standard.string(forKey: "weight") ?? ""
         self.heightFeet = UserDefaults.standard.string(forKey: "heightFeet") ?? ""
         self.heightInches = UserDefaults.standard.string(forKey: "heightInches") ?? ""
@@ -74,10 +95,13 @@ class Settings: ObservableObject {
         self.manualCalories = UserDefaults.standard.string(forKey: "manualCalories") ?? ""
         self.insulinToCarbRatio = UserDefaults.standard.string(forKey: "insulinToCarbRatio") ?? ""
         self.correctionDose = UserDefaults.standard.string(forKey: "correctionDose") ?? ""
-        self.targetGlucose = UserDefaults.standard.string(forKey: "targetGlucose") ?? "100" // Default target glucose
+        self.targetGlucose = UserDefaults.standard.string(forKey: "targetGlucose") ?? "100"
 
-        // Update finalCalories initially
-        self.finalCalories = recommendedCalories
+        self.finalCalories = computedFinalCalories
+    }
+
+    private func updateFinalCalories() {
+        self.finalCalories = computedFinalCalories
     }
 
     //  Calculate Recommended Calories using Mifflin-St Jeor Equation
@@ -115,14 +139,14 @@ class Settings: ObservableObject {
             adjustedCalories = tdee
         }
 
-        DispatchQueue.main.async {
-            self.finalCalories = adjustedCalories
-        }
-
         return adjustedCalories
     }
 
     var computedFinalCalories: Double {
-        return Double(manualCalories) ?? finalCalories
+        if let customCalories = Double(manualCalories), customCalories > 0 {
+            return customCalories
+        } else {
+            return recommendedCalories
+        }
     }
 }

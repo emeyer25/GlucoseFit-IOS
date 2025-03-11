@@ -111,5 +111,5 @@ private let dateFormatter: DateFormatter = {
 
 #Preview {
     HomeView(selectedDate: Date())
-        .modelContainer(for: [MealLogEntry.self, FoodItem.self]) // Provide a preview container
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self]) // Provide a preview container
 }

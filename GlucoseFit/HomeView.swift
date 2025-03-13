@@ -81,7 +81,7 @@ public struct HomeView: View {
         return NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(Font.custom("Inter", size: 24))
+                    .font(Font.custom("Inter", size: 30))
                     .bold()
                     .foregroundColor(.black)
                 

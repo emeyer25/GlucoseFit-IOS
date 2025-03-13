@@ -1,16 +1,16 @@
 import SwiftUI
 
-public struct SettingsView: View {
+struct WelcomeMenuView: View {
+    @AppStorage("hasCompletedSetup") private var hasCompletedSetup = false
     @StateObject private var settings = Settings.shared
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
 
     let genderOptions = ["Male", "Female"]
     let activityLevels = ["Sedentary", "Lightly Active", "Active", "Very Active"]
     let goals = ["Gain 1lb a week", "Lose 1lb a week", "Maintain Weight"]
 
-    public var body: some View {
+    var body: some View {
         ZStack {
-            // Background Gradient
             LinearGradient(
                 stops: [
                     Gradient.Stop(color: Color(red: 0.33, green: 0.62, blue: 0.68), location: 0.00),
@@ -20,19 +20,20 @@ public struct SettingsView: View {
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
             .edgesIgnoringSafeArea(.all)
+
             ScrollView {
                 VStack {
-                    Text("Settings")
+                    Text("Welcome!")
                         .font(.custom("Inter", size: 34))
                         .foregroundColor(.black)
                         .padding(.bottom, 10)
 
-                    VStack(alignment: .leading, spacing: 15) {
-                        // Toggle for Carb-Only View
-                        Toggle("Enable Carb-Only View", isOn: $settings.isCarbOnlyViewEnabled)
-                            .font(.headline)
-                            .padding(.vertical, 10)
+                    Text("Let's get started by setting up your profile.")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .padding(.bottom, 20)
 
+                    VStack(alignment: .leading, spacing: 15) {
                         // Weight Input
                         SettingInputField(title: "Weight (lbs)", value: $settings.weight)
 
@@ -81,7 +82,7 @@ public struct SettingsView: View {
                         }
                         .pickerStyle(MenuPickerStyle())
 
-                        // Insulin-to-Carb Ratio (1: [Box])
+                        // Insulin-to-Carb Ratio
                         VStack(alignment: .leading) {
                             Text("Insulin to Carb Ratio")
                                 .font(.headline)
@@ -91,11 +92,11 @@ public struct SettingsView: View {
                                 TextField("", text: $settings.insulinToCarbRatio)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .keyboardType(.decimalPad)
-                                    .frame(width: 80) // Adjust width to align properly
+                                    .frame(width: 80)
                             }
                         }
 
-                        // Correction Dose (1: [Box])
+                        // Correction Dose
                         VStack(alignment: .leading) {
                             Text("Correction Dose")
                                 .font(.headline)
@@ -105,7 +106,7 @@ public struct SettingsView: View {
                                 TextField("", text: $settings.correctionDose)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .keyboardType(.decimalPad)
-                                    .frame(width: 80) // Adjust width to align properly
+                                    .frame(width: 80)
                             }
                         }
 
@@ -118,59 +119,39 @@ public struct SettingsView: View {
                                 .keyboardType(.numberPad)
                                 .frame(width: 120)
                         }
-
-                        // Display Recommended Calories
-                        VStack {
-                            Text("Recommended Daily Calories")
-                                .font(.headline)
-                            Text("\(String(format: "%.0f", settings.recommendedCalories)) kcal")
-                                .font(.title2)
-                                .bold()
-                                .foregroundColor(.blue)
-                        }
-
-                        // Manual Calorie Input
-                        SettingInputField(title: "Set Custom Calories", value: $settings.manualCalories)
-
-                        // Display Final Calories
-                        VStack {
-                            Text("Final Daily Calories")
-                                .font(.headline)
-                            Text("\(String(format: "%.0f", settings.finalCalories)) kcal")
-                                .font(.title2)
-                                .bold()
-                                .foregroundColor(.green)
-                        }
                     }
                     .padding()
                     .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
                     .padding(.horizontal)
 
-                    Spacer()
+                    Button(action: completeSetup) {
+                        Text("Save and Continue")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                    }
+                    .padding(.top, 20)
                 }
                 .padding(.top, 20)
             }
         }
     }
-}
 
-// Reusable Input Field
-struct SettingInputField: View {
-    var title: String
-    @Binding var value: String
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.headline)
-            TextField("Enter \(title)", text: $value)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.numberPad)
+    private func completeSetup() {
+        hasCompletedSetup = true
+        
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            window.rootViewController = UIHostingController(rootView: ContentView())
+            window.makeKeyAndVisible()
         }
     }
 }
 
 #Preview {
-    SettingsView()
+    WelcomeMenuView()
 }

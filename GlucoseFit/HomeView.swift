@@ -78,8 +78,6 @@ public struct HomeView: View {
     private func mealSection(title: String, selectedDate: Date) -> some View {
         let meals = mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) && $0.mealName == title }
         let totalCarbs = meals.reduce(0) { $0 + $1.foods.reduce(0) { $0 + $1.carbs } }
-        let insulinUnits = totalCarbs / (Double(settings.insulinToCarbRatio) ?? 1)
-
         return NavigationLink(destination: MealLogView(mealName: title, selectedDate: selectedDate)) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
@@ -88,11 +86,7 @@ public struct HomeView: View {
                     .foregroundColor(.black)
                 
                 Text("Carbs: \(Int(totalCarbs))g")
-                    .font(Font.custom("Inter", size: 18))
-                    .foregroundColor(.gray)
-                
-                Text("Units: \(String(format: "%.1f", insulinUnits))")
-                    .font(Font.custom("Inter", size: 18))
+                    .font(Font.custom("Inter", size: 22))
                     .foregroundColor(.gray)
             }
             .padding()

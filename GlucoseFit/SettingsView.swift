@@ -1,14 +1,8 @@
-//
-//  SettingsView.swift
-//  GlucoseFit
-//
-
 import SwiftUI
 
 public struct SettingsView: View {
     @StateObject private var settings = Settings.shared
     @Environment(\.modelContext) private var modelContext
-
 
     let genderOptions = ["Male", "Female"]
     let activityLevels = ["Sedentary", "Lightly Active", "Active", "Very Active"]
@@ -25,16 +19,20 @@ public struct SettingsView: View {
                 startPoint: UnitPoint(x: 0.02, y: 0.61),
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
-            .edgesIgnoringSafeArea(.all) // Extend background to cover full screen
-
+            .edgesIgnoringSafeArea(.all)
             ScrollView {
                 VStack {
                     Text("Settings")
-                        .font(.custom("Inter", size: 34)) // Reduced font size
+                        .font(.custom("Inter", size: 34))
                         .foregroundColor(.black)
                         .padding(.bottom, 10)
 
-                    VStack(alignment: .leading, spacing: 15) { // Reduced spacing
+                    VStack(alignment: .leading, spacing: 15) {
+                        // Toggle for Carb-Only View
+                        Toggle("Enable Carb-Only View", isOn: $settings.isCarbOnlyViewEnabled)
+                            .font(.headline)
+                            .padding(.vertical, 10)
+
                         // Weight Input
                         SettingInputField(title: "Weight (lbs)", value: $settings.weight)
 
@@ -145,19 +143,18 @@ public struct SettingsView: View {
                         }
                     }
                     .padding()
-                    .background(Color.white.opacity(0.7)) // Keeps settings container readable
+                    .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
                     .padding(.horizontal)
 
                     Spacer()
                 }
-                .padding(.top, 20) // Added top padding
+                .padding(.top, 20)
             }
         }
     }
 }
 
-// Reusable Input Field
 struct SettingInputField: View {
     var title: String
     @Binding var value: String

@@ -1,8 +1,3 @@
-//
-//  Settings.swift
-//  GlucoseFit
-//
-
 import Foundation
 
 class Settings: ObservableObject {
@@ -78,6 +73,13 @@ class Settings: ObservableObject {
         didSet { UserDefaults.standard.set(targetGlucose, forKey: "targetGlucose") }
     }
 
+    // Carb-Only View Setting
+    @Published var isCarbOnlyViewEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(isCarbOnlyViewEnabled, forKey: "isCarbOnlyViewEnabled")
+        }
+    }
+
     @Published var finalCalories: Double = 0.0 {
         didSet {
             objectWillChange.send()
@@ -96,6 +98,7 @@ class Settings: ObservableObject {
         self.insulinToCarbRatio = UserDefaults.standard.string(forKey: "insulinToCarbRatio") ?? ""
         self.correctionDose = UserDefaults.standard.string(forKey: "correctionDose") ?? ""
         self.targetGlucose = UserDefaults.standard.string(forKey: "targetGlucose") ?? "100"
+        self.isCarbOnlyViewEnabled = UserDefaults.standard.bool(forKey: "isCarbOnlyViewEnabled")
 
         self.finalCalories = computedFinalCalories
     }
@@ -104,7 +107,7 @@ class Settings: ObservableObject {
         self.finalCalories = computedFinalCalories
     }
 
-    //  Calculate Recommended Calories using Mifflin-St Jeor Equation
+    // Calculate Recommended Calories using Mifflin-St Jeor Equation
     var recommendedCalories: Double {
         guard let weightLbs = Double(weight), weightLbs > 0,
               let heightFt = Double(heightFeet), heightFt >= 0,

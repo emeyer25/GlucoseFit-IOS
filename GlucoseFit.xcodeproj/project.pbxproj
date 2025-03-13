@@ -10,6 +10,7 @@
 		F8010C4E2D64CF80008577A4 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8010C4D2D64CF80008577A4 /* AddFoodView.swift */; };
 		F833E1732D4D18BA0035197F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1722D4D18BA0035197F /* SettingsView.swift */; };
 		F833E1752D4D18F00035197F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833E1742D4D18F00035197F /* HomeView.swift */; };
+		F8365CE32D830F35002DF0CF /* CarbHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8365CE22D830F35002DF0CF /* CarbHomeView.swift */; };
 		F848F4C22D67ABE1006FDA20 /* SavedFoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F848F4C12D67ABE1006FDA20 /* SavedFoodsView.swift */; };
 		F84918CA2D663AD90082DFF2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84918C92D663AD90082DFF2 /* DataManager.swift */; };
 		F8980C712D7A41A500493847 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8980C702D7A41A500493847 /* SplashScreenView.swift */; };
@@ -32,6 +33,7 @@
 		F8010C4D2D64CF80008577A4 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
 		F833E1722D4D18BA0035197F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F833E1742D4D18F00035197F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F8365CE22D830F35002DF0CF /* CarbHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbHomeView.swift; sourceTree = "<group>"; };
 		F848F4C12D67ABE1006FDA20 /* SavedFoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedFoodsView.swift; sourceTree = "<group>"; };
 		F84918C92D663AD90082DFF2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F8980C702D7A41A500493847 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				F8E6CFB32D427F1D00EEE39E /* Assets.xcassets */,
 				F8E6CFB52D427F1D00EEE39E /* Preview Content */,
 				F833E1742D4D18F00035197F /* HomeView.swift */,
+				F8365CE22D830F35002DF0CF /* CarbHomeView.swift */,
 				F8ADF64F2D52A4D500320CAC /* MealLogEntry.swift */,
 				F8ADF6512D52A4F800320CAC /* MealLogView.swift */,
 				F8010C4D2D64CF80008577A4 /* AddFoodView.swift */,
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8980C712D7A41A500493847 /* SplashScreenView.swift in Sources */,
+				F8365CE32D830F35002DF0CF /* CarbHomeView.swift in Sources */,
 				F8C1593D2D529D8E004477C4 /* Calendar.swift in Sources */,
 				F84918CA2D663AD90082DFF2 /* DataManager.swift in Sources */,
 				F8C1593B2D526424004477C4 /* Item.swift in Sources */,

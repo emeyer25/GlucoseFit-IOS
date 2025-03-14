@@ -74,6 +74,7 @@ public struct HomeView: View {
                 }
             }
         }
+        .modelContext(modelContext)
     }
     private func mealSection(title: String, selectedDate: Date) -> some View {
         let meals = mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) && $0.mealName == title }

@@ -42,6 +42,7 @@ struct SavedFoodsView: View {
                 EditButton()
             }
         }
+        .modelContext(modelContext)
     }
 
     private var filteredSavedFoods: [SavedFoodItem] {

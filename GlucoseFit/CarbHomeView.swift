@@ -64,6 +64,7 @@ public struct CarbHomeView: View {
                 }
             }
         }
+        .modelContext(modelContext)
     }
 
     private func mealSection(title: String, selectedDate: Date) -> some View {

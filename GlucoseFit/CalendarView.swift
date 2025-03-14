@@ -48,6 +48,7 @@ struct CalendarView: View {
                 .padding(.top, 20)
             }
         }
+        .modelContext(modelContext)
     }
 }
 

@@ -108,6 +108,7 @@ struct MealLogView: View {
             }
             .padding()
         }
+        .modelContext(modelContext)
     }
 
     private func addFoodToMealLog(_ food: FoodItem) {

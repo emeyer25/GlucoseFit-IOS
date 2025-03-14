@@ -4,10 +4,6 @@ public struct SettingsView: View {
     @StateObject private var settings = Settings.shared
     @Environment(\.modelContext) private var modelContext
 
-    let genderOptions = ["Male", "Female"]
-    let activityLevels = ["Sedentary", "Lightly Active", "Active", "Very Active"]
-    let goals = ["Gain 1lb a week", "Lose 1lb a week", "Maintain Weight"]
-
     public var body: some View {
         ZStack {
             // Background Gradient
@@ -59,7 +55,7 @@ public struct SettingsView: View {
 
                         // Gender Picker
                         Picker("Gender", selection: $settings.gender) {
-                            ForEach(genderOptions, id: \.self) { gender in
+                            ForEach(Settings.genderOptions, id: \.self) { gender in
                                 Text(gender)
                             }
                         }
@@ -67,7 +63,7 @@ public struct SettingsView: View {
 
                         // Activity Level Picker
                         Picker("Activity Level", selection: $settings.activityLevel) {
-                            ForEach(activityLevels, id: \.self) { level in
+                            ForEach(Settings.activityLevels, id: \.self) { level in
                                 Text(level)
                             }
                         }
@@ -75,7 +71,7 @@ public struct SettingsView: View {
 
                         // Goal Picker
                         Picker("Goal", selection: $settings.goal) {
-                            ForEach(goals, id: \.self) { goal in
+                            ForEach(Settings.goals, id: \.self) { goal in
                                 Text(goal)
                             }
                         }

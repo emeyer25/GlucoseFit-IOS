@@ -39,12 +39,16 @@ class Settings: ObservableObject {
         }
     }
 
+    public static var genderOptions = ["Male", "Female"]
+
     @Published var activityLevel: String {
         didSet {
             UserDefaults.standard.set(activityLevel, forKey: "activityLevel")
             updateFinalCalories()
         }
     }
+    
+    public static var activityLevels = ["Sedentary", "Lightly Active", "Active", "Very Active"]
 
     @Published var goal: String {
         didSet {
@@ -52,6 +56,8 @@ class Settings: ObservableObject {
             updateFinalCalories()
         }
     }
+    
+    public static var goals = ["Gain 1lb a week", "Lose 1lb a week", "Maintain Weight"]
 
     @Published var manualCalories: String {
         didSet {

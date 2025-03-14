@@ -38,7 +38,7 @@ class Settings: ObservableObject {
             updateFinalCalories()
         }
     }
-
+    
     public static var genderOptions = ["Male", "Female"]
 
     @Published var activityLevel: String {

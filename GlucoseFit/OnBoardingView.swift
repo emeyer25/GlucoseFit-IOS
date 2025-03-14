@@ -22,11 +22,24 @@ public struct OnBoardingView: View {
             VStack {
                 if step == 1 {
                     WelcomeView(moveOn: {
-                        step += 1
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            step += 1
+                        }
                     })
                 }
                 else if step == 2 {
-                    InitialConfigView()
+                    InitialConfigView(moveOn: {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            step += 1
+                        }
+                    })
+                }
+                else if step == 3 {
+                    NextConfigView(moveOn: {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            step += 1
+                        }
+                    })
                 }
             }
             .frame(maxWidth: .infinity)
@@ -63,16 +76,18 @@ struct WelcomeView: View {
 
 struct InitialConfigView: View {
     @StateObject private var settings = Settings.shared
+    var moveOn : () -> ()
+    @State private var alert = false
     
     var body: some View {
         VStack {
-            Text("Let's get your information set up!")
+            Text("Let's get you set up!")
                 .padding()
                 .font(.title)
             VStack(alignment: .leading, spacing: 15) { // Reduced spacing
                 // Weight Input
                 SettingInputField(title: "Weight (lbs)", value: $settings.weight)
-
+                
                 // Height Input
                 VStack(alignment: .leading) {
                     Text("Height")
@@ -83,7 +98,7 @@ struct InitialConfigView: View {
                             .keyboardType(.numberPad)
                             .frame(width: 60)
                         Text("ft")
-
+                        
                         TextField("Inches", text: $settings.heightInches)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
@@ -91,33 +106,103 @@ struct InitialConfigView: View {
                         Text("in")
                     }
                 }
-
+                
                 SettingInputField(title: "Age", value: $settings.age)
-
+                
                 // Gender Picker
                 Picker("Gender", selection: $settings.gender) {
-                    ForEach(genderOptions, id: \.self) { gender in
+                    ForEach(Settings.genderOptions, id: \.self) { gender in
                         Text(gender)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-
+                
                 // Activity Level Picker
                 Picker("Activity Level", selection: $settings.activityLevel) {
-                    ForEach(activityLevels, id: \.self) { level in
+                    ForEach(Settings.activityLevels, id: \.self) { level in
                         Text(level)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-
+                
                 // Goal Picker
                 Picker("Goal", selection: $settings.goal) {
-                    ForEach(goals, id: \.self) { goal in
+                    ForEach(Settings.goals, id: \.self) { goal in
                         Text(goal)
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                
+                Button("Next") {
+                    if $settings.weight.wrappedValue.isEmpty || $settings.heightFeet.wrappedValue.isEmpty || $settings.heightInches.wrappedValue.isEmpty ||
+                        $settings.age.wrappedValue.isEmpty {
+                        alert = true
+                    }
+                    else {
+                        moveOn()
+                    }
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .alert(isPresented: $alert) {
+                    Alert(title: Text("Misssing Settings"), message: Text("Make sure all fields are filled out"), dismissButton: .default(Text("Ok")))
+                }
+                
+            }
+        }
+    }
+}
 
+struct NextConfigView: View {
+    var moveOn : () -> ()
+    @StateObject private var settings = Settings.shared
+    @State private var alert = false
+    
+    var body: some View {
+        VStack {
+            Text("Now, let's get your dose ratios set up!")
+                .font(.title)
+                .frame(alignment: .center)
+            
+            VStack(alignment: .leading) {
+                Text("Insulin to Carb Ratio")
+                    .font(.headline)
+                HStack {
+                    Text("1:")
+                        .font(.headline)
+                    TextField("", text: $settings.insulinToCarbRatio)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.decimalPad)
+                        .frame(width: 80) // Adjust width to align properly
+                }
+            }
+
+            // Correction Dose (1: [Box])
+            VStack(alignment: .leading) {
+                Text("Correction Dose")
+                    .font(.headline)
+                HStack {
+                    Text("1:")
+                        .font(.headline)
+                    TextField("", text: $settings.correctionDose)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.decimalPad)
+                        .frame(width: 80) // Adjust width to align properly
+                }
+            }
+
+            // Target Glucose Input
+            VStack(alignment: .leading) {
+                Text("Target Glucose (mg/dL)")
+                    .font(.headline)
+                TextField("Enter Target Glucose", text: $settings.targetGlucose)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
+                    .frame(width: 120)
+            }
         }
     }
 }

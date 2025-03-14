@@ -5,6 +5,7 @@ struct ContentView: View {
     @State private var selectedTab = 1
     @State private var selectedDate = Date()
     @Environment(\.modelContext) private var modelContext
+    @StateObject private var settings = Settings.shared
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -14,11 +15,19 @@ struct ContentView: View {
                 }
                 .tag(0)
 
-            HomeView(selectedDate: selectedDate)
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-                .tag(1)
+            if settings.isCarbOnlyViewEnabled {
+                CarbHomeView(selectedDate: selectedDate)
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                    .tag(1)
+            } else {
+                HomeView(selectedDate: selectedDate)
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                    .tag(1)
+            }
 
             DoseCalculatorView()
                 .tabItem {

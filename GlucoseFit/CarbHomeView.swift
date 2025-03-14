@@ -1,24 +1,18 @@
 import SwiftUI
 import SwiftData
 
-public struct HomeView: View {
+public struct CarbHomeView: View {
     @StateObject private var settings = Settings.shared
     @Query private var mealLogs: [MealLogEntry]
     @Environment(\.modelContext) private var modelContext
 
+    var selectedDate: Date
 
-    var selectedDate: Date // Accept selectedDate from CalendarView
-
-    var loggedCalories: Double {
+    var loggedCarbs: Double {
         mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
             .reduce(0) { total, meal in
-                total + meal.foods.reduce(0) { $0 + $1.calories }
+                total + meal.foods.reduce(0) { $0 + $1.carbs }
             }
-    }
-
-    var remainingCalories: Double {
-        let totalCalories = settings.computedFinalCalories
-        return max(0, totalCalories - loggedCalories)
     }
 
     public var body: some View {
@@ -43,16 +37,12 @@ public struct HomeView: View {
                                 .bold()
                                 .foregroundColor(.black)
                             
-                            Text("Calories")
+                            Text("Total Carbs")
                                 .font(Font.custom("Inter", size: 40))
                                 .bold()
                                 .foregroundColor(.black)
                             
-                            Text("\(Int(settings.computedFinalCalories)) - \(Int(loggedCalories))")
-                                .font(Font.custom("Inter", size: 24))
-                                .foregroundColor(.gray)
-                            
-                            Text("\(Int(remainingCalories))")
+                            Text("\(Int(loggedCarbs))g")
                                 .font(Font.custom("Inter", size: 40))
                                 .bold()
                                 .foregroundColor(.black)
@@ -75,6 +65,7 @@ public struct HomeView: View {
             }
         }
     }
+
     private func mealSection(title: String, selectedDate: Date) -> some View {
         let meals = mealLogs.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) && $0.mealName == title }
         let totalCarbs = meals.reduce(0) { $0 + $1.foods.reduce(0) { $0 + $1.carbs } }
@@ -88,6 +79,7 @@ public struct HomeView: View {
                 Text("Carbs: \(Int(totalCarbs))g")
                     .font(Font.custom("Inter", size: 22))
                     .foregroundColor(.gray)
+                
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -106,6 +98,6 @@ private let dateFormatter: DateFormatter = {
 }()
 
 #Preview {
-    HomeView(selectedDate: Date())
+    CarbHomeView(selectedDate: Date())
         .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self]) // Provide a preview container
 }

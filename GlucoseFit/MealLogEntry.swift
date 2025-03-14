@@ -30,7 +30,7 @@ final class SavedFoodItem {
 
 @Model
 final class MealLogEntry {
-    var mealName: String
+    public final var mealName: String
     @Relationship var foods: [FoodItem]
     var date: Date
     

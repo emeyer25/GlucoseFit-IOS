@@ -1,14 +1,12 @@
-//
-//  DoseCalculatorView.swift
-//  GlucoseFit
-//
-
 import SwiftUI
+import SwiftData
 
 public struct DoseCalculatorView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = DoseCalculatorViewModel()
     
+    @Query private var mealLogs: [MealLogEntry]
+    @State private var selectedMeal: MealLogEntry? = nil
 
     public var body: some View {
         VStack {
@@ -18,6 +16,25 @@ public struct DoseCalculatorView: View {
                 .padding()
 
             VStack(alignment: .leading, spacing: 15) {
+                // Meal Selection
+                Text("Select Meal")
+                    .font(.headline)
+                Picker("Select Meal", selection: $selectedMeal) {
+                    Text("None").tag(nil as MealLogEntry?)
+                    ForEach(mealLogs, id: \.self) { meal in
+                        Text(meal.mealName).tag(meal as MealLogEntry?)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .onChange(of: selectedMeal) { newMeal in
+                    if let meal = newMeal {
+                        let totalCarbs = meal.foods.reduce(0) { $0 + $1.carbs }
+                        viewModel.carbs = String(totalCarbs)
+                    } else {
+                        viewModel.carbs = ""
+                    }
+                }
+
                 // Carbs Input
                 Text("Carbohydrates (g)")
                     .font(.headline)

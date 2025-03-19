@@ -144,14 +144,13 @@ public struct SettingsView: View {
                                 .foregroundColor(.green)
                         }
                     }
-                    .padding()
-                    .background(Color.white.opacity(0.7))
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-
-                    Spacer()
                 }
-                .padding(.top, 20)
+                .padding()
+                .background(Color.white.opacity(0.7))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                
+                Spacer()
             }
         }
     }

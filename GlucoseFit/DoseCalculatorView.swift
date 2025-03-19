@@ -14,19 +14,18 @@ public struct DoseCalculatorView: View {
                 .font(.title)
                 .bold()
                 .padding()
-
-            VStack(alignment: .leading, spacing: 15) {
+            
+            VStack {
                 // Meal Selection
                 Text("Select Meal")
-                    .font(.headline)
+                    .font(.title2)
                 Picker("Select Meal", selection: $selectedMeal) {
                     Text("None").tag(nil as MealLogEntry?)
                     ForEach(mealLogs, id: \.self) { meal in
                         Text(meal.mealName).tag(meal as MealLogEntry?)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
-                .onChange(of: selectedMeal) { newMeal in
+                .onChange(of: selectedMeal) { _, newMeal in
                     if let meal = newMeal {
                         let totalCarbs = meal.foods.reduce(0) { $0 + $1.carbs }
                         viewModel.carbs = String(totalCarbs)
@@ -34,6 +33,22 @@ public struct DoseCalculatorView: View {
                         viewModel.carbs = ""
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .accentColor(.white)
+                .cornerRadius(10)
+                .padding()
+                Text("Note: Empty meals will not be shown")
+                    .font(.caption)
+            }
+            .padding()
+            .background(Color.white.opacity(0.7))
+            .cornerRadius(10)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
+
+            VStack(alignment: .leading, spacing: 15) {
+                
 
                 // Carbs Input
                 Text("Carbohydrates (g)")

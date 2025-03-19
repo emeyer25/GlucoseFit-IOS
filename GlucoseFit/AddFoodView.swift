@@ -9,6 +9,7 @@ struct AddFoodView: View {
     @State private var calories: String = ""
 
     var onAdd: (FoodItem) -> Void
+    var onSave: (FoodItem) -> Void
 
     var body: some View {
         VStack(spacing: 20) {
@@ -42,6 +43,17 @@ struct AddFoodView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
             }
+            Button("Save") {
+                saveFood()
+            }
+            .font(.title2)
+            .bold()
+            .foregroundColor(.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(.yellow)
+            .cornerRadius(10)
+            .padding(.horizontal)
 
             Spacer()
         }
@@ -58,5 +70,15 @@ struct AddFoodView: View {
         onAdd(newFood)
 
         dismiss()
+    }
+    
+    private func saveFood() {
+        guard let carbsValue = Double(carbs), let caloriesValue = Double(calories), !foodName.isEmpty else { return }
+        
+        addFood()
+        
+        let savedItem = FoodItem(name: foodName, carbs: carbsValue, calories: caloriesValue)
+        
+        onSave(savedItem)
     }
 }

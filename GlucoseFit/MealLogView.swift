@@ -99,7 +99,12 @@ struct MealLogView: View {
                         .padding(.horizontal)
                 }
                 .sheet(isPresented: $showAddFoodView) {
-                    AddFoodView { newFood in addFoodToMealLog(newFood) }
+                    AddFoodView(onAdd: {
+                        newFood in addFoodToMealLog(newFood)
+                    }, onSave: {
+                        savedItem in
+                        saveFoodToSavedFoods(savedItem)
+                    })
                 }
 
                 Button(action: { showSavedFoodsView.toggle() }) {

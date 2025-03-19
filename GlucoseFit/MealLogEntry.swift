@@ -31,8 +31,9 @@ final class SavedFoodItem {
 @Model
 final class MealLogEntry {
     public final var mealName: String
-    @Relationship var foods: [FoodItem]
+    var foods: [FoodItem]
     var date: Date
+    var id = UUID()
     
     init(mealName: String, foods: [FoodItem], date: Date) {
         self.mealName = mealName

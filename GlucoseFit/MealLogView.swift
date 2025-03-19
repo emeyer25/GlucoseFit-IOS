@@ -20,6 +20,56 @@ struct MealLogView: View {
             (mealName == nil || entry.mealName == mealName)
         }
     }
+    
+    var foodList: some View {
+        VStack {
+            if mealsForSelectedDate.isEmpty {
+                Text("No meals logged for this day.")
+                    .foregroundColor(.gray)
+                    .padding()
+            } else {
+                List {
+                    ForEach(mealsForSelectedDate, id: \.mealName) { mealLog in
+                        Section(header: Text(mealLog.mealName)) {
+                            ForEach(mealLog.foods, id: \.name) { food in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(food.name).font(.headline)
+                                        Text("\(food.carbs, specifier: "%.1f")g carbs, \(food.calories, specifier: "%.1f") cal")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        removeFoodItem(food, from: mealLog)
+                                    }) {
+                                        Image(systemName: "trash")
+                                            .foregroundColor(.red)
+                                            .padding(.trailing, 10)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    Button(action: {
+                                        saveFoodToSavedFoods(food)
+                                    }) {
+                                        Image(systemName: "plus.circle.fill")
+                                            .foregroundColor(.green)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                                .contentShape(Rectangle())
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background(.white.opacity(0.7))
+        .cornerRadius(10)
+        .padding(.horizontal)
+    }
 
     var body: some View {
         ZStack {
@@ -38,49 +88,8 @@ struct MealLogView: View {
                     .font(.largeTitle)
                     .bold()
                     .padding()
-
-                if mealsForSelectedDate.isEmpty {
-                    Text("No meals logged for this day.")
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    List {
-                        ForEach(mealsForSelectedDate, id: \.mealName) { mealLog in
-                            Section(header: Text(mealLog.mealName)) {
-                                ForEach(mealLog.foods, id: \.name) { food in
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            Text(food.name).font(.headline)
-                                            Text("\(food.carbs, specifier: "%.1f")g carbs, \(food.calories, specifier: "%.1f") cal")
-                                                .font(.subheadline)
-                                                .foregroundColor(.gray)
-                                        }
-                                        Spacer()
-
-                                        Button(action: {
-                                            removeFoodItem(food, from: mealLog)
-                                        }) {
-                                            Image(systemName: "trash")
-                                                .foregroundColor(.red)
-                                                .padding(.trailing, 10)
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-
-                                        Button(action: {
-                                            saveFoodToSavedFoods(food)
-                                        }) {
-                                            Image(systemName: "plus.circle.fill")
-                                                .foregroundColor(.green)
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                    }
-                                    .contentShape(Rectangle())
-                                }
-                            }
-                        }
-                    }
-                    .background(Color.clear)
-                }
+                
+                foodList
 
                 Button(action: { showAddFoodView.toggle() }) {
                     Text("Add Food")

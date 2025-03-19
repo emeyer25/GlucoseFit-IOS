@@ -53,6 +53,8 @@ public struct SettingsView: View {
 
                         SettingInputField(title: "Age", value: $settings.age)
 
+                        Text("Gender")
+                            .font(.headline)
                         // Gender Picker
                         Picker("Gender", selection: $settings.gender) {
                             ForEach(Settings.genderOptions, id: \.self) { gender in
@@ -61,6 +63,8 @@ public struct SettingsView: View {
                         }
                         .pickerStyle(MenuPickerStyle())
 
+                        Text("Activity Level")
+                            .font(.headline)
                         // Activity Level Picker
                         Picker("Activity Level", selection: $settings.activityLevel) {
                             ForEach(Settings.activityLevels, id: \.self) { level in
@@ -69,6 +73,8 @@ public struct SettingsView: View {
                         }
                         .pickerStyle(MenuPickerStyle())
 
+                        Text("Goal")
+                            .font(.headline)
                         // Goal Picker
                         Picker("Goal", selection: $settings.goal) {
                             ForEach(Settings.goals, id: \.self) { goal in

@@ -8,6 +8,7 @@ import SwiftUI
 
 public struct OnBoardingView: View {
     @State private var step = 1
+    public var complete: () -> ()
     public var body: some View {
         ZStack {
             LinearGradient(
@@ -38,6 +39,13 @@ public struct OnBoardingView: View {
                     NextConfigView(moveOn: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             step += 1
+                        }
+                    })
+                }
+                else if step == 4 {
+                    CompletionView(moveOn : {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            complete()
                         }
                     })
                 }
@@ -109,6 +117,8 @@ struct InitialConfigView: View {
                 
                 SettingInputField(title: "Age", value: $settings.age)
                 
+                Text("Gender")
+                    .font(.headline)
                 // Gender Picker
                 Picker("Gender", selection: $settings.gender) {
                     ForEach(Settings.genderOptions, id: \.self) { gender in
@@ -117,6 +127,8 @@ struct InitialConfigView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 
+                Text("Activity Level")
+                    .font(.headline)
                 // Activity Level Picker
                 Picker("Activity Level", selection: $settings.activityLevel) {
                     ForEach(Settings.activityLevels, id: \.self) { level in
@@ -125,6 +137,8 @@ struct InitialConfigView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 
+                Text("Goal")
+                    .font(.headline)
                 // Goal Picker
                 Picker("Goal", selection: $settings.goal) {
                     ForEach(Settings.goals, id: \.self) { goal in
@@ -162,10 +176,11 @@ struct NextConfigView: View {
     @State private var alert = false
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Now, let's get your dose ratios set up!")
                 .font(.title)
-                .frame(alignment: .center)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 5)
             
             VStack(alignment: .leading) {
                 Text("Insulin to Carb Ratio")
@@ -203,10 +218,48 @@ struct NextConfigView: View {
                     .keyboardType(.numberPad)
                     .frame(width: 120)
             }
+            
+            Button("Next") {
+                if $settings.correctionDose.wrappedValue.isEmpty || $settings.insulinToCarbRatio.wrappedValue.isEmpty || $settings.targetGlucose.wrappedValue.isEmpty {
+                    alert = true
+                }
+                else {
+                    moveOn()
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Misssing Settings"), message: Text("Make sure all fields are filled out"), dismissButton: .default(Text("Ok")))
+            }
+        }
+    }
+}
+
+struct CompletionView: View {
+    var moveOn: () -> ()
+    var body: some View {
+        VStack {
+            Text("You're all set!")
+                .font(.title)
+                .frame(alignment: .center)
+            Button("Let's go!") {
+                moveOn()
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
         }
     }
 }
 
 #Preview {
-    OnBoardingView()
+    OnBoardingView(complete: {
+        print("done")
+    })
 }

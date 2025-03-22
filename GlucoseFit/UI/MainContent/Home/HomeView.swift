@@ -22,7 +22,7 @@ public struct HomeView: View {
     }
 
     public var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 LinearGradient(
                     stops: [

@@ -3,6 +3,7 @@ import SwiftUI
 public struct SettingsView: View {
     @StateObject private var settings = Settings.shared
     @Environment(\.modelContext) private var modelContext
+    
 
     public var body: some View {
         ZStack {
@@ -149,6 +150,9 @@ public struct SettingsView: View {
                 .background(Color.white.opacity(0.7))
                 .cornerRadius(10)
                 .padding(.horizontal)
+                .onTapGesture(perform: {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                })
                 
                 Spacer()
             }

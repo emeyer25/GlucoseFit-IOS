@@ -104,6 +104,9 @@ public struct DoseCalculatorView: View {
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
         )
+        .onTapGesture(perform: {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        })
     }
 }
 

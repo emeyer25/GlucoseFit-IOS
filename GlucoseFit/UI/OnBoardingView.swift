@@ -55,6 +55,9 @@ public struct OnBoardingView: View {
             .background(Color.white.opacity(0.7)) // Keeps settings container readable
             .cornerRadius(10)
             .padding(.horizontal)
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
         }
     }
 }

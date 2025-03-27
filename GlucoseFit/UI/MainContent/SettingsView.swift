@@ -220,7 +220,6 @@ struct SettingInputField: View {
 }
 
 #Preview {
-    Group {
-        SettingsView().preferredColorScheme(.dark)
-    }
+    SettingsView().preferredColorScheme(.dark)
+    
 }

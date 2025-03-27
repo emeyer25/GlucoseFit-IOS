@@ -68,7 +68,7 @@ struct MedicalDisclaimer: View {
     
     var body: some View {
         VStack(spacing: 15) {
-            Text("!! Read Before Continuing !!")
+            Text("Read Before Continuing")
                 .font(.title)
             Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment. The insulin dose calculator is a tool to help support decision-making, but it should not be used as a substitute for guidance from your healthcare provider.\n\nAlways consult with your doctor or diabetes care team before making any changes to your insulin regimen or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app.\n\nBy using GlucoseFit, you acknowledge that you understand and agree to these terms.")
             

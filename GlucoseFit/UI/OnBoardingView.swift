@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct OnBoardingView: View {
-    @State private var step = 1
+    @State private var step = 0
     @Environment(\.colorScheme) private var colorScheme
     public var complete: () -> ()
 
@@ -31,6 +31,8 @@ public struct OnBoardingView: View {
 
             VStack {
                 switch step {
+                case 0:
+                    MedicalDisclaimer(moveOn: { withAnimation {step += 1 } } )
                 case 1:
                     WelcomeView(moveOn: { withAnimation { step += 1 } })
                 case 2:
@@ -51,6 +53,39 @@ public struct OnBoardingView: View {
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
+        }
+    }
+}
+
+struct MedicalDisclaimer: View {
+    var moveOn: () -> ()
+    @Environment(\.colorScheme) private var color
+    
+    var textColor: Color { color == .dark ? .white : .black }
+    
+    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    @State var activateAcknowledge: Bool = false
+    
+    var body: some View {
+        VStack(spacing: 15) {
+            Text("!! Read Before Continuing !!")
+                .font(.title)
+            Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment. The insulin dose calculator is a tool to help support decision-making, but it should not be used as a substitute for guidance from your healthcare provider.\n\nAlways consult with your doctor or diabetes care team before making any changes to your insulin regimen or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app.\n\nBy using GlucoseFit, you acknowledge that you understand and agree to these terms.")
+            
+            Button("I Understand and Agree") {
+                moveOn()
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(activateAcknowledge ? Color.blue : Color.gray)
+            .cornerRadius(10)
+            .foregroundColor(.white)
+            .disabled(!activateAcknowledge)
+            .onReceive(timer, perform: { what in
+                withAnimation {
+                    activateAcknowledge = true
+                }
+            })
         }
     }
 }

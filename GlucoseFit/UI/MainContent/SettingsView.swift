@@ -73,7 +73,7 @@ public struct SettingsView: View {
                                 TextField("Inches", text: $settings.heightInches)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .keyboardType(.numberPad)
-                                    .frame(width: 60)
+                                    .frame(width: 65)
                                     .colorScheme(colorScheme)
                                 Text("in")
                                     .foregroundColor(textColor)

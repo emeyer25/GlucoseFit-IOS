@@ -139,20 +139,9 @@ class Settings: ObservableObject {
             let morning = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
             
             self.timeBasedDoseSettings = [
-                TimeBasedDoseSetting(startTime: midnight, insulinToCarbRatio: "7", correctionDose: "50", targetGlucose: "100"),
-                TimeBasedDoseSetting(startTime: morning, insulinToCarbRatio: "6", correctionDose: "40", targetGlucose: "100")
             ]
             
-            // Migrate legacy settings if they exist
-            if !self.insulinToCarbRatio.isEmpty && !self.correctionDose.isEmpty && !self.targetGlucose.isEmpty {
-                let legacySetting = TimeBasedDoseSetting(
-                    startTime: midnight,
-                    insulinToCarbRatio: self.insulinToCarbRatio,
-                    correctionDose: self.correctionDose,
-                    targetGlucose: self.targetGlucose
-                )
-                self.timeBasedDoseSettings = [legacySetting]
-            }
+           
         }
 
         self.finalCalories = computedFinalCalories

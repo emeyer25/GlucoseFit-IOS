@@ -18,7 +18,7 @@ public struct HomeView: View {
 
     var remainingCalories: Double {
         let totalCalories = settings.computedFinalCalories
-        return max(0, totalCalories - loggedCalories)
+        return totalCalories - loggedCalories
     }
     
     // Updated dynamic colors with brighter dark mode

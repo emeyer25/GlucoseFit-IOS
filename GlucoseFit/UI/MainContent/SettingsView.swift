@@ -187,7 +187,7 @@ public struct SettingsView: View {
                         .padding()
 
                         SettingInputField(title: "Set Custom Calories", value: $settings.manualCalories)
-                            
+                            .padding()
 
                         VStack {
                             Text("Final Daily Calories")

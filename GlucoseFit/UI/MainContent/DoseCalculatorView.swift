@@ -5,10 +5,12 @@ public struct DoseCalculatorView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = DoseCalculatorViewModel()
+    @StateObject private var settings = Settings.shared
 
     @Query private var mealLogs: [MealLogEntry]
-    @State private var selectedMeal: MealLogEntry? = nil
+    @State private var selectedMeal: MealLogEntry?
 
+    // Color definitions
     private var backgroundColor: Color {
         colorScheme == .dark ? Color(red: 0.18, green: 0.23, blue: 0.28) : Color(red: 0.33, green: 0.62, blue: 0.68)
     }
@@ -48,6 +50,51 @@ public struct DoseCalculatorView: View {
                 .foregroundColor(textColor)
                 .padding()
 
+            // Current Time Settings Display
+            VStack(alignment: .leading) {
+                let currentSettings = settings.currentDoseSettings()
+                Text("Current Settings")
+                    .font(.headline)
+                    .foregroundColor(textColor)
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Insulin:Carb")
+                            .font(.subheadline)
+                            .foregroundColor(secondaryTextColor)
+                        Text("1:\(currentSettings.insulinToCarbRatio)")
+                            .font(.headline)
+                            .foregroundColor(textColor)
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading) {
+                        Text("Correction")
+                            .font(.subheadline)
+                            .foregroundColor(secondaryTextColor)
+                        Text("1:\(currentSettings.correctionDose)")
+                            .font(.headline)
+                            .foregroundColor(textColor)
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading) {
+                        Text("Target")
+                            .font(.subheadline)
+                            .foregroundColor(secondaryTextColor)
+                        Text("\(currentSettings.targetGlucose) mg/dL")
+                            .font(.headline)
+                            .foregroundColor(textColor)
+                    }
+                }
+            }
+            .padding()
+            .background(cardBackgroundColor)
+            .cornerRadius(10)
+            .padding(.horizontal)
+
             // Meal Picker
             VStack {
                 Text("Select Meal")
@@ -63,7 +110,6 @@ public struct DoseCalculatorView: View {
                 .onChange(of: selectedMeal) { _, newMeal in
                     if let meal = newMeal {
                         let totalCarbs = meal.foods.reduce(0) { $0 + $1.carbs }
-                        print("Selected meal: \(meal.mealName), Total Carbs: \(totalCarbs)")
                         viewModel.carbs = String(format: "%.1f", totalCarbs)
                     } else {
                         viewModel.carbs = ""
@@ -107,7 +153,7 @@ public struct DoseCalculatorView: View {
                     .foregroundColor(textColor)
 
                 Button("Calculate Dose") {
-                    viewModel.calculateDose()
+                    viewModel.calculateDose(using: settings.currentDoseSettings())
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -115,19 +161,29 @@ public struct DoseCalculatorView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
 
-                Text("Suggested Insulin Dose")
-                    .font(.headline)
-                    .foregroundColor(textColor)
-                    .padding(.top, 10)
+                if viewModel.suggestedDose > 0 {
+                    VStack {
+                        Text("Suggested Insulin Dose")
+                            .font(.headline)
+                            .foregroundColor(textColor)
+                            .padding(.top, 10)
 
-                Text("\(viewModel.suggestedDose, specifier: "%.1f") units")
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(buttonColor)
-                    .padding()
-                    .background(cardBackgroundColor)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
+                        Text("\(viewModel.suggestedDose, specifier: "%.1f") units")
+                            .font(.largeTitle)
+                            .bold()
+                            .foregroundColor(buttonColor)
+                            .padding()
+                            .background(cardBackgroundColor)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity)
+                        
+                        if viewModel.correctionDose > 0 {
+                            Text("Includes \(viewModel.correctionDose, specifier: "%.1f") units correction")
+                                .font(.caption)
+                                .foregroundColor(secondaryTextColor)
+                        }
+                    }
+                }
             }
             .padding()
             .background(cardBackgroundColor)
@@ -153,6 +209,7 @@ public struct DoseCalculatorView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     DoseCalculatorView()
         .preferredColorScheme(.dark)

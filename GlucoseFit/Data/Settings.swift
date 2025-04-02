@@ -1,5 +1,18 @@
 import Foundation
 
+struct TimeBasedDoseSetting: Codable, Hashable {
+    var startTime: Date
+    var insulinToCarbRatio: String
+    var correctionDose: String
+    var targetGlucose: String
+    
+    var timeString: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: startTime)
+    }
+}
+
 class Settings: ObservableObject {
     static let shared = Settings()
 
@@ -67,6 +80,15 @@ class Settings: ObservableObject {
     }
 
     // Insulin Settings
+    @Published var timeBasedDoseSettings: [TimeBasedDoseSetting] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(timeBasedDoseSettings) {
+                UserDefaults.standard.set(encoded, forKey: "timeBasedDoseSettings")
+            }
+        }
+    }
+    
+    // Legacy insulin settings (for backward compatibility)
     @Published var insulinToCarbRatio: String {
         didSet { UserDefaults.standard.set(insulinToCarbRatio, forKey: "insulinToCarbRatio") }
     }
@@ -105,6 +127,33 @@ class Settings: ObservableObject {
         self.correctionDose = UserDefaults.standard.string(forKey: "correctionDose") ?? ""
         self.targetGlucose = UserDefaults.standard.string(forKey: "targetGlucose") ?? "100"
         self.isCarbOnlyViewEnabled = UserDefaults.standard.bool(forKey: "isCarbOnlyViewEnabled")
+        
+        // Initialize time-based dose settings
+        if let data = UserDefaults.standard.data(forKey: "timeBasedDoseSettings"),
+           let decoded = try? JSONDecoder().decode([TimeBasedDoseSetting].self, from: data) {
+            self.timeBasedDoseSettings = decoded.sorted { $0.startTime < $1.startTime }
+        } else {
+            // Default settings if none exist
+            let calendar = Calendar.current
+            let midnight = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
+            let morning = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
+            
+            self.timeBasedDoseSettings = [
+                TimeBasedDoseSetting(startTime: midnight, insulinToCarbRatio: "7", correctionDose: "50", targetGlucose: "100"),
+                TimeBasedDoseSetting(startTime: morning, insulinToCarbRatio: "6", correctionDose: "40", targetGlucose: "100")
+            ]
+            
+            // Migrate legacy settings if they exist
+            if !self.insulinToCarbRatio.isEmpty && !self.correctionDose.isEmpty && !self.targetGlucose.isEmpty {
+                let legacySetting = TimeBasedDoseSetting(
+                    startTime: midnight,
+                    insulinToCarbRatio: self.insulinToCarbRatio,
+                    correctionDose: self.correctionDose,
+                    targetGlucose: self.targetGlucose
+                )
+                self.timeBasedDoseSettings = [legacySetting]
+            }
+        }
 
         self.finalCalories = computedFinalCalories
     }
@@ -157,5 +206,42 @@ class Settings: ObservableObject {
         } else {
             return recommendedCalories
         }
+    }
+    
+    // Get current dose settings based on time
+    func currentDoseSettings(for time: Date = Date()) -> TimeBasedDoseSetting {
+        let calendar = Calendar.current
+        let currentTime = calendar.dateComponents([.hour, .minute], from: time)
+        
+        // Filter settings that are before or equal to current time, then get the latest one
+        let activeSettings = timeBasedDoseSettings.filter { setting in
+            let settingTime = calendar.dateComponents([.hour, .minute], from: setting.startTime)
+            return (settingTime.hour! < currentTime.hour!) ||
+                   (settingTime.hour! == currentTime.hour! && settingTime.minute! <= currentTime.minute!)
+        }
+        
+        // If we have active settings, return the latest one
+        if let latestSetting = activeSettings.last {
+            return latestSetting
+        }
+        
+        // If no active settings (current time is before all settings), return the last setting of the day
+        return timeBasedDoseSettings.last ?? TimeBasedDoseSetting(
+            startTime: calendar.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!,
+            insulinToCarbRatio: "7",
+            correctionDose: "50",
+            targetGlucose: "100"
+        )
+    }
+    
+    // Add a new time-based setting
+    func addTimeBasedSetting(_ setting: TimeBasedDoseSetting) {
+        timeBasedDoseSettings.append(setting)
+        timeBasedDoseSettings.sort { $0.startTime < $1.startTime }
+    }
+    
+    // Remove a time-based setting
+    func removeTimeBasedSetting(at index: Int) {
+        timeBasedDoseSettings.remove(at: index)
     }
 }

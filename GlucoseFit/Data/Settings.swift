@@ -135,8 +135,7 @@ class Settings: ObservableObject {
         } else {
             // Default settings if none exist
             let calendar = Calendar.current
-            let midnight = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
-            let morning = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
+           
             
             self.timeBasedDoseSettings = [
             ]

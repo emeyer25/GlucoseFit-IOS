@@ -27,7 +27,6 @@ final class SavedFoodItem {
     }
 }
 
-
 @Model
 final class MealLogEntry {
     public final var mealName: String
@@ -42,3 +41,14 @@ final class MealLogEntry {
     }
 }
 
+@Model
+final class InsulinLogEntry {
+    var id: UUID = UUID()
+    var units: Double
+    var date: Date
+
+    init(units: Double, date: Date) {
+        self.units = units
+        self.date = date
+    }
+}

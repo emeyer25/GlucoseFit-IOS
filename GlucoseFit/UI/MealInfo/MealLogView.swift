@@ -110,7 +110,6 @@ struct MealLogView: View {
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
             .edgesIgnoringSafeArea(.all)
-            ScrollView {
                 VStack(spacing: 20) {
                     Text(mealName == nil ?
                          "All Meals for \(selectedDate, formatter: dateFormatter)" :
@@ -139,7 +138,7 @@ struct MealLogView: View {
                         }, onSave: { savedItem in
                             saveFoodToSavedFoods(savedItem)
                         })
-                        .presentationDetents([.medium])
+                        .presentationDetents([.large])
                     }
                     
                     Button(action: { showSavedFoodsView.toggle() }) {
@@ -220,7 +219,7 @@ struct MealLogView: View {
             }
             .modelContext(modelContext)
         }
-    }
+    
 
     private func addFoodToMealLog(_ food: FoodItem) {
         let foodCopy = FoodItem(name: food.name, carbs: food.carbs, calories: food.calories)
@@ -265,3 +264,5 @@ struct MealLogView: View {
         return formatter
     }()
 }
+
+

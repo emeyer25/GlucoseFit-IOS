@@ -8,7 +8,7 @@ struct GlucoseFitApp: App {
             Main()
         }
         .modelContainer(
-            for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self],
+            for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self, InsulinLogEntry.self],
             inMemory: false, // Set to false for production, true for development
             isAutosaveEnabled: true
         )
@@ -38,5 +38,5 @@ struct Main: View {
 
 #Preview {
     Main()
-        .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self], inMemory: true)
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self, InsulinLogEntry.self], inMemory: true)
 }

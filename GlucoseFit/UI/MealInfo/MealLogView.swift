@@ -99,6 +99,7 @@ struct MealLogView: View {
     }
 
     var body: some View {
+        
         ZStack {
             LinearGradient(
                 stops: [
@@ -109,115 +110,116 @@ struct MealLogView: View {
                 endPoint: UnitPoint(x: 1.01, y: 0.61)
             )
             .edgesIgnoringSafeArea(.all)
-
-            VStack(spacing: 20) {
-                Text(mealName == nil ?
-                     "All Meals for \(selectedDate, formatter: dateFormatter)" :
-                     "\(mealName!) for \(selectedDate, formatter: dateFormatter)")
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text(mealName == nil ?
+                         "All Meals for \(selectedDate, formatter: dateFormatter)" :
+                            "\(mealName!) for \(selectedDate, formatter: dateFormatter)")
                     .font(.largeTitle)
                     .bold()
                     .padding()
                     .foregroundColor(textColor)
-
-                foodList
-
-                Button(action: { showAddFoodView.toggle() }) {
-                    Text("Add Food")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                }
-                .sheet(isPresented: $showAddFoodView) {
-                    AddFoodView(onAdd: { newFood in
-                        addFoodToMealLog(newFood)
-                    }, onSave: { savedItem in
-                        saveFoodToSavedFoods(savedItem)
-                    })
-                    .presentationDetents([.medium])
-                }
-
-                Button(action: { showSavedFoodsView.toggle() }) {
-                    Text("Add from Saved Foods")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.orange)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                }
-                .sheet(isPresented: $showSavedFoodsView) {
-                    SavedFoodsView { selectedFood in
-                        addFoodToMealLog(selectedFood)
-                    }
-                    .presentationDetents([.medium])
-                }
-
-                // Insulin Logging Section
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Log Insulin Dose")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(textColor)
-                        .padding(.horizontal)
-                    HStack {
-                        TextField("Enter units", text: $insulinDose)
-                            .keyboardType(.decimalPad)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        Button(action: {
-                            logInsulin()
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title)
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    .padding(.horizontal)
                     
-                    // Display logged insulin entries for the day
+                    foodList
+                    
+                    Button(action: { showAddFoodView.toggle() }) {
+                        Text("Add Food")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                    .sheet(isPresented: $showAddFoodView) {
+                        AddFoodView(onAdd: { newFood in
+                            addFoodToMealLog(newFood)
+                        }, onSave: { savedItem in
+                            saveFoodToSavedFoods(savedItem)
+                        })
+                        .presentationDetents([.medium])
+                    }
+                    
+                    Button(action: { showSavedFoodsView.toggle() }) {
+                        Text("Add from Saved Foods")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.orange)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                    .sheet(isPresented: $showSavedFoodsView) {
+                        SavedFoodsView { selectedFood in
+                            addFoodToMealLog(selectedFood)
+                        }
+                        .presentationDetents([.medium])
+                    }
+                    
+                    // Insulin Logging Section
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Insulin Logs")
-                            .font(.headline)
+                        Text("Log Insulin Dose")
+                            .font(.title2)
+                            .bold()
                             .foregroundColor(textColor)
                             .padding(.horizontal)
-                        if insulinLogsForSelectedDate.isEmpty {
-                            Text("No insulin logs for this day.")
-                                .foregroundColor(.gray)
-                                .padding(.horizontal)
-                        } else {
-                            List {
-                                ForEach(insulinLogsForSelectedDate, id: \.id) { log in
-                                    HStack {
-                                        Text("Units: \(log.units, specifier: "%.1f")")
-                                        Spacer()
-                                        Text(log.date, style: .time)
-                                        Button(action: {
-                                            deleteInsulinLog(log)
-                                        }) {
-                                            Image(systemName: "trash")
-                                        }
-                                        .buttonStyle(BorderlessButtonStyle())
-                                        .foregroundColor(.red)
-                                    }
-                                    .contentShape(Rectangle())
-                                }
+                        HStack {
+                            TextField("Enter units", text: $insulinDose)
+                                .keyboardType(.decimalPad)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Button(action: {
+                                logInsulin()
+                            }) {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.title)
+                                    .foregroundColor(.blue)
                             }
-                            .listStyle(InsetGroupedListStyle())
+                        }
+                        .padding(.horizontal)
+                        
+                        // Display logged insulin entries for the day
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Insulin Logs")
+                                .font(.headline)
+                                .foregroundColor(textColor)
+                                .padding(.horizontal)
+                            if insulinLogsForSelectedDate.isEmpty {
+                                Text("No insulin logs for this day.")
+                                    .foregroundColor(.gray)
+                                    .padding(.horizontal)
+                            } else {
+                                List {
+                                    ForEach(insulinLogsForSelectedDate, id: \.id) { log in
+                                        HStack {
+                                            Text("Units: \(log.units, specifier: "%.1f")")
+                                            Spacer()
+                                            Text(log.date, style: .time)
+                                            Button(action: {
+                                                deleteInsulinLog(log)
+                                            }) {
+                                                Image(systemName: "trash")
+                                            }
+                                            .buttonStyle(BorderlessButtonStyle())
+                                            .foregroundColor(.red)
+                                        }
+                                        .contentShape(Rectangle())
+                                    }
+                                }
+                                .listStyle(InsetGroupedListStyle())
+                            }
                         }
                     }
+                    
+                    Spacer()
                 }
-
-                Spacer()
+                .padding()
             }
-            .padding()
+            .modelContext(modelContext)
         }
-        .modelContext(modelContext)
     }
 
     private func addFoodToMealLog(_ food: FoodItem) {

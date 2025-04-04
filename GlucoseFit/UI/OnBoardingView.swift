@@ -68,8 +68,8 @@ struct MedicalDisclaimer: View {
     
     var textColor: Color { color == .dark ? .white : .black }
     
-    // Wait 8 seconds before enabling the button.
-    let timer = Timer.publish(every: 8, on: .main, in: .common).autoconnect()
+    // Wait 6 seconds before enabling the button.
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @State var activateAcknowledge: Bool = false
     
     var body: some View {
@@ -77,7 +77,7 @@ struct MedicalDisclaimer: View {
             Text("Read Before Continuing")
                 .font(.title)
                 .foregroundColor(textColor)
-            Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment. The insulin dose calculator is a tool to help support decision-making, but it should not be used as a substitute for guidance from your healthcare provider.\n\nAlways consult with your doctor or diabetes care team before making any changes to your insulin regimen or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app.\n\nBy using GlucoseFit, you acknowledge that you understand and agree to these terms.")
+            Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment.Always consult with your doctor or diabetes care team before making any changes to your insulin regimen, diet, or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app.By using GlucoseFit, you acknowledge that you understand and agree to these terms.")
                 .foregroundColor(textColor)
             
             Button("I Understand and Agree") {

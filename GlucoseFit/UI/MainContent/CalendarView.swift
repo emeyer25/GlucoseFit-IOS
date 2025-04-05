@@ -3,22 +3,14 @@ import SwiftData
 
 struct CalendarView: View {
     @State private var selectedDate = Date()
-    @State private var activeSheet: ActiveSheet?
-    @State private var isShowingHomeView = false
-    @State private var isShowingInsulinLog = false
+    @State private var showLogSelection = false
+    @State private var showInsulinLog = false
+    @State private var showFoodLog = false
     @Query private var entries: [CalendarEntry]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
     
-    enum ActiveSheet: Identifiable {
-        case logSelection
-        
-        var id: Int {
-            hashValue
-        }
-    }
-    
-    // Dynamic colors based on color scheme
+    // Dynamic colors
     private var backgroundColor: Color {
         colorScheme == .dark ? Color(red: 0.18, green: 0.23, blue: 0.28) : Color(red: 0.33, green: 0.62, blue: 0.68)
     }
@@ -38,7 +30,6 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Dynamic Background Gradient
                 LinearGradient(
                     stops: [
                         Gradient.Stop(color: backgroundColor, location: 0.00),
@@ -50,18 +41,15 @@ struct CalendarView: View {
                 .edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    // Calendar Picker with dark mode support
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)
                         .padding()
                         .background(cardBackgroundColor)
                         .cornerRadius(10)
                         .padding(.horizontal)
-                        .colorScheme(colorScheme)
 
-                    // Button to show log selection
                     Button(action: {
-                        activeSheet = .logSelection
+                        showLogSelection = true
                     }) {
                         Text("View Details for Selected Day")
                             .font(.title2)
@@ -78,41 +66,38 @@ struct CalendarView: View {
                 .padding(.top, 20)
             }
         }
-        .sheet(item: $activeSheet) { item in
-            switch item {
-            case .logSelection:
-                LogTypeSelectionView(
-                    selectedDate: selectedDate,
-                    isShowingHomeView: $isShowingHomeView,
-                    isShowingInsulinLog: $isShowingInsulinLog
-                )
-                .presentationDetents([.height(200)])
-                .presentationCornerRadius(20)
-                .environment(\.modelContext, modelContext)
-            }
+        .sheet(isPresented: $showLogSelection) {
+            LogTypeSelectionView(
+                selectedDate: selectedDate,
+                showInsulinLog: $showInsulinLog,
+                showFoodLog: $showFoodLog
+            )
+            .environment(\.modelContext, modelContext)
+            .presentationDetents([.height(200)])
+            .presentationCornerRadius(20)
         }
-        .fullScreenCover(isPresented: $isShowingHomeView) {
+        .fullScreenCover(isPresented: $showFoodLog) {
             NavigationStack {
                 HomeView(selectedDate: selectedDate)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Back") {
-                                isShowingHomeView = false
+                                showFoodLog = false
                             }
                         }
                     }
             }
             .environment(\.modelContext, modelContext)
         }
-        .fullScreenCover(isPresented: $isShowingInsulinLog) {
+        .fullScreenCover(isPresented: $showInsulinLog) {
             NavigationStack {
                 InsulinLogView(selectedDate: selectedDate)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Back") {
-                                isShowingInsulinLog = false
+                                showInsulinLog = false
                             }
                         }
                     }
@@ -124,8 +109,8 @@ struct CalendarView: View {
 
 struct LogTypeSelectionView: View {
     let selectedDate: Date
-    @Binding var isShowingHomeView: Bool
-    @Binding var isShowingInsulinLog: Bool
+    @Binding var showInsulinLog: Bool
+    @Binding var showFoodLog: Bool
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -136,10 +121,9 @@ struct LogTypeSelectionView: View {
                 .padding(.top)
             
             HStack(spacing: 20) {
-                // Food Log Button
                 Button(action: {
                     dismiss()
-                    isShowingHomeView = true
+                    showFoodLog = true
                 }) {
                     VStack {
                         Image(systemName: "fork.knife")
@@ -152,10 +136,9 @@ struct LogTypeSelectionView: View {
                     .cornerRadius(10)
                 }
                 
-                // Insulin Log Button
                 Button(action: {
                     dismiss()
-                    isShowingInsulinLog = true
+                    showInsulinLog = true
                 }) {
                     VStack {
                         Image(systemName: "syringe")

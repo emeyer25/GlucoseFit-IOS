@@ -225,13 +225,25 @@ struct InsulinLogView: View {
         if useCustomTime {
             // Combine the selected date with the custom time
             let calendar = Calendar.current
-            let components = calendar.dateComponents([.hour, .minute], from: customTime)
-            dateToUse = calendar.date(bySettingHour: components.hour ?? 0,
-                                      minute: components.minute ?? 0,
-                                      second: 0,
-                                      of: selectedDate) ?? Date()
+            let selectedComponents = calendar.dateComponents([.year, .month, .day], from: selectedDate)
+            let timeComponents = calendar.dateComponents([.hour, .minute], from: customTime)
+            
+            var combinedComponents = DateComponents()
+            combinedComponents.year = selectedComponents.year
+            combinedComponents.month = selectedComponents.month
+            combinedComponents.day = selectedComponents.day
+            combinedComponents.hour = timeComponents.hour
+            combinedComponents.minute = timeComponents.minute
+            
+            dateToUse = calendar.date(from: combinedComponents) ?? Date()
         } else {
-            dateToUse = Date()
+            // If the selected date is today, use current time
+            if Calendar.current.isDate(Date(), inSameDayAs: selectedDate) {
+                dateToUse = Date()
+            } else {
+                // For past/future dates, use noon as default time
+                dateToUse = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: selectedDate) ?? Date()
+            }
         }
         
         let insulinEntry = InsulinLogEntry(units: units, date: dateToUse)

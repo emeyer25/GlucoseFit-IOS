@@ -3,9 +3,20 @@ import SwiftData
 
 struct CalendarView: View {
     @State private var selectedDate = Date()
+    @State private var activeSheet: ActiveSheet?
+    @State private var isShowingHomeView = false
+    @State private var isShowingInsulinLog = false
     @Query private var entries: [CalendarEntry]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
+    
+    enum ActiveSheet: Identifiable {
+        case logSelection
+        
+        var id: Int {
+            hashValue
+        }
+    }
     
     // Dynamic colors based on color scheme
     private var backgroundColor: Color {
@@ -46,10 +57,12 @@ struct CalendarView: View {
                         .background(cardBackgroundColor)
                         .cornerRadius(10)
                         .padding(.horizontal)
-                        .colorScheme(colorScheme) // Ensures date picker adapts
+                        .colorScheme(colorScheme)
 
-                    // Navigation Button
-                    NavigationLink(destination: HomeView(selectedDate: selectedDate)) {
+                    // Button to show log selection
+                    Button(action: {
+                        activeSheet = .logSelection
+                    }) {
                         Text("View Details for Selected Day")
                             .font(.title2)
                             .bold()
@@ -65,15 +78,108 @@ struct CalendarView: View {
                 .padding(.top, 20)
             }
         }
-        .modelContext(modelContext)
+        .sheet(item: $activeSheet) { item in
+            switch item {
+            case .logSelection:
+                LogTypeSelectionView(
+                    selectedDate: selectedDate,
+                    isShowingHomeView: $isShowingHomeView,
+                    isShowingInsulinLog: $isShowingInsulinLog
+                )
+                .presentationDetents([.height(200)])
+                .presentationCornerRadius(20)
+                .environment(\.modelContext, modelContext)
+            }
+        }
+        .fullScreenCover(isPresented: $isShowingHomeView) {
+            NavigationStack {
+                HomeView(selectedDate: selectedDate)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Back") {
+                                isShowingHomeView = false
+                            }
+                        }
+                    }
+            }
+            .environment(\.modelContext, modelContext)
+        }
+        .fullScreenCover(isPresented: $isShowingInsulinLog) {
+            NavigationStack {
+                InsulinLogView(selectedDate: selectedDate)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Back") {
+                                isShowingInsulinLog = false
+                            }
+                        }
+                    }
+            }
+            .environment(\.modelContext, modelContext)
+        }
+    }
+}
+
+struct LogTypeSelectionView: View {
+    let selectedDate: Date
+    @Binding var isShowingHomeView: Bool
+    @Binding var isShowingInsulinLog: Bool
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Select Log Type")
+                .font(.title2)
+                .bold()
+                .padding(.top)
+            
+            HStack(spacing: 20) {
+                // Food Log Button
+                Button(action: {
+                    dismiss()
+                    isShowingHomeView = true
+                }) {
+                    VStack {
+                        Image(systemName: "fork.knife")
+                            .font(.largeTitle)
+                        Text("Food Log")
+                            .font(.headline)
+                    }
+                    .frame(width: 120, height: 100)
+                    .background(Color.blue.opacity(0.2))
+                    .cornerRadius(10)
+                }
+                
+                // Insulin Log Button
+                Button(action: {
+                    dismiss()
+                    isShowingInsulinLog = true
+                }) {
+                    VStack {
+                        Image(systemName: "syringe")
+                            .font(.largeTitle)
+                        Text("Insulin Log")
+                            .font(.headline)
+                    }
+                    .frame(width: 120, height: 100)
+                    .background(Color.green.opacity(0.2))
+                    .cornerRadius(10)
+                }
+            }
+            
+            Button("Cancel") {
+                dismiss()
+            }
+            .foregroundColor(.red)
+            .padding(.bottom)
+        }
     }
 }
 
 #Preview {
-    Group {
-        
-        CalendarView()
-            .preferredColorScheme(.dark)
-    }
-    .modelContainer(for: [CalendarEntry.self])
+    CalendarView()
+        .preferredColorScheme(.dark)
+        .modelContainer(for: [CalendarEntry.self, MealLogEntry.self, FoodItem.self, SavedFoodItem.self, InsulinLogEntry.self])
 }

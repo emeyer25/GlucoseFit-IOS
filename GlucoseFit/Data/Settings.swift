@@ -133,9 +133,6 @@ class Settings: ObservableObject {
            let decoded = try? JSONDecoder().decode([TimeBasedDoseSetting].self, from: data) {
             self.timeBasedDoseSettings = decoded.sorted { $0.startTime < $1.startTime }
         } else {
-            // Default settings if none exist
-            let calendar = Calendar.current
-           
             
             self.timeBasedDoseSettings = [
             ]

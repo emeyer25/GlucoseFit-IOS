@@ -7,6 +7,8 @@ struct InsulinLogView: View {
     @StateObject private var settings = Settings.shared
     @Query private var insulinLogs: [InsulinLogEntry]
     @State private var insulinDose: String = ""
+    @State private var useCustomTime: Bool = false
+    @State private var customTime: Date = Date()
     let selectedDate: Date
     
     private var insulinLogsForSelectedDate: [InsulinLogEntry] {
@@ -128,6 +130,18 @@ struct InsulinLogView: View {
                                 .cornerRadius(8)
                             }
                         }
+                        
+                        // Time selection toggle
+                        HStack {
+                            Toggle("Use specific time", isOn: $useCustomTime)
+                                .foregroundColor(textColor)
+                                .tint(buttonColor)
+                            
+                            if useCustomTime {
+                                DatePicker("", selection: $customTime, displayedComponents: .hourAndMinute)
+                                    .labelsHidden()
+                            }
+                        }
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -206,7 +220,21 @@ struct InsulinLogView: View {
     
     private func logInsulin() {
         guard let units = Double(insulinDose) else { return }
-        let insulinEntry = InsulinLogEntry(units: units, date: Date())
+        
+        let dateToUse: Date
+        if useCustomTime {
+            // Combine the selected date with the custom time
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.hour, .minute], from: customTime)
+            dateToUse = calendar.date(bySettingHour: components.hour ?? 0,
+                                      minute: components.minute ?? 0,
+                                      second: 0,
+                                      of: selectedDate) ?? Date()
+        } else {
+            dateToUse = Date()
+        }
+        
+        let insulinEntry = InsulinLogEntry(units: units, date: dateToUse)
         modelContext.insert(insulinEntry)
         insulinDose = ""
     }

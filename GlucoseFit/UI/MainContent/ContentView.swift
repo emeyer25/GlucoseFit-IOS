@@ -35,7 +35,7 @@ struct ContentView: View {
                 
                 InsulinLogView(selectedDate: selectedDate)
                     .tabItem {
-                        Label("InsulinLog", systemImage: "syringe")
+                        Label("Insulin Log", systemImage: "syringe")
                     }
                     .tag(2)
                 

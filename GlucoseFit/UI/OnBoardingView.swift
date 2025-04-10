@@ -32,7 +32,6 @@ public struct OnBoardingView: View {
             .edgesIgnoringSafeArea(.all)
             
             VStack {
-                // Flow steps: MedicalDisclaimer, Welcome, Basic Config, then Time-Based Dose Settings, then Completion.
                 switch step {
                 case 0:
                     MedicalDisclaimer(moveOn: { withAnimation { step += 1 } })
@@ -60,7 +59,7 @@ public struct OnBoardingView: View {
     }
 }
 
-// MARK: - OnBoarding Steps
+// MARK: - Medical Disclaimer
 
 struct MedicalDisclaimer: View {
     var moveOn: () -> Void
@@ -68,7 +67,6 @@ struct MedicalDisclaimer: View {
     
     var textColor: Color { color == .dark ? .white : .black }
     
-    // Wait 6 seconds before enabling the button.
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @State var activateAcknowledge: Bool = false
     
@@ -77,7 +75,7 @@ struct MedicalDisclaimer: View {
             Text("Read Before Continuing")
                 .font(.title)
                 .foregroundColor(textColor)
-            Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment.Always consult with your doctor or diabetes care team before making any changes to your insulin regimen, diet, or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app.By using GlucoseFit, you acknowledge that you understand and agree to these terms.")
+            Text("GlucoseFit is intended for informational and educational purposes only. It does not provide medical advice, diagnosis, or treatment. Always consult with your doctor or diabetes care team before making any changes to your insulin regimen, diet, or treatment plan. Never disregard professional medical advice or delay seeking it because of information provided by this app. By using GlucoseFit, you acknowledge that you understand and agree to these terms.")
                 .foregroundColor(textColor)
             
             Button("I Understand and Agree") {
@@ -96,6 +94,8 @@ struct MedicalDisclaimer: View {
         .padding()
     }
 }
+
+// MARK: - Welcome View
 
 struct WelcomeView: View {
     var moveOn: () -> Void
@@ -123,6 +123,8 @@ struct WelcomeView: View {
     }
 }
 
+// MARK: - Initial Config View (Only Manual Calories)
+
 struct InitialConfigView: View {
     @StateObject private var settings = Settings.shared
     var moveOn: () -> Void
@@ -133,69 +135,16 @@ struct InitialConfigView: View {
     
     var body: some View {
         VStack {
-            Text("Let's get you set up!")
+            Text("Let's set your goal calories")
                 .padding()
                 .font(.title)
                 .foregroundColor(textColor)
             
             VStack(alignment: .leading, spacing: 15) {
-                SettingInputField(title: "Weight (lbs)", value: $settings.weight)
-                
-                VStack(alignment: .leading) {
-                    Text("Height")
-                        .font(.headline)
-                        .foregroundColor(textColor)
-                    HStack {
-                        TextField("Feet", text: $settings.heightFeet)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .frame(width: 60)
-                        Text("ft")
-                            .foregroundColor(textColor)
-                        
-                        TextField("Inches", text: $settings.heightInches)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .frame(width: 60)
-                        Text("in")
-                            .foregroundColor(textColor)
-                    }
-                }
-                
-                SettingInputField(title: "Age", value: $settings.age)
-                
-                Text("Gender")
-                    .font(.headline)
-                    .foregroundColor(textColor)
-                Picker("Gender", selection: $settings.gender) {
-                    ForEach(Settings.genderOptions, id: \.self) { gender in
-                        Text(gender)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                
-                Text("Activity Level")
-                    .font(.headline)
-                    .foregroundColor(textColor)
-                Picker("Activity Level", selection: $settings.activityLevel) {
-                    ForEach(Settings.activityLevels, id: \.self) { level in
-                        Text(level)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                
-                Text("Goal")
-                    .font(.headline)
-                    .foregroundColor(textColor)
-                Picker("Goal", selection: $settings.goal) {
-                    ForEach(Settings.goals, id: \.self) { goal in
-                        Text(goal)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
+                SettingInputField(title: "Goal Calories", value: $settings.manualCalories)
                 
                 Button("Next") {
-                    if settings.weight.isEmpty || settings.heightFeet.isEmpty || settings.heightInches.isEmpty || settings.age.isEmpty {
+                    if settings.manualCalories.isEmpty {
                         alert = true
                     } else {
                         moveOn()
@@ -207,7 +156,11 @@ struct InitialConfigView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .alert(isPresented: $alert) {
-                    Alert(title: Text("Missing Settings"), message: Text("Make sure all fields are filled out"), dismissButton: .default(Text("OK")))
+                    Alert(
+                        title: Text("Missing Field"),
+                        message: Text("Please enter your goal calories to continue."),
+                        dismissButton: .default(Text("OK"))
+                    )
                 }
             }
         }
@@ -215,11 +168,12 @@ struct InitialConfigView: View {
     }
 }
 
+// MARK: - Time-Based Config View
+
 struct TimeBasedConfigView: View {
     var moveOn: () -> Void
     @StateObject private var settings = Settings.shared
     @State private var alert = false
-    // Local state for managing the sheet.
     @State private var showingAddTimeSetting = false
     @State private var newSetting = TimeBasedDoseSetting(
         startTime: Date(),
@@ -304,6 +258,8 @@ struct TimeBasedConfigView: View {
     }
 }
 
+// MARK: - Completion View
+
 struct CompletionView: View {
     var moveOn: () -> Void
     @Environment(\.colorScheme) private var colorScheme
@@ -355,18 +311,11 @@ struct TimeBasedDoseSettingView: View {
     @Binding var setting: TimeBasedDoseSetting
     var onDelete: () -> Void
     @Environment(\.colorScheme) private var colorScheme
-
-    private var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter
-    }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text("Time: \(setting.timeString)")
-                // Display "1:" before ratio and correction dose.
                 Text("Ratio: 1: \(setting.insulinToCarbRatio)")
                 Text("Correction: 1: \(setting.correctionDose)")
                 Text("Target: \(setting.targetGlucose)")
@@ -415,6 +364,8 @@ struct AddTimeBasedDoseSettingView: View {
         .navigationBarTitle("Add Time Setting", displayMode: .inline)
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     OnBoardingView(complete: {

@@ -120,6 +120,17 @@ public struct SettingsView: View {
                             SettingInputField(title: "Set Goal Calories", value: $settings.manualCalories)
                         }
                         .padding()
+                        
+                        NavigationLink(destination: ExportView()) {
+                            HStack {
+                                Text("Export your logs")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                        }
                     }
                     .background(cardBackgroundColor)
                     .cornerRadius(10)

@@ -6,6 +6,7 @@ final class FoodItem {
     var name: String
     var carbs: Double
     var calories: Double
+    var id = UUID()
     
     init(name: String, carbs: Double, calories: Double) {
         self.name = name
@@ -19,6 +20,7 @@ final class SavedFoodItem {
     var name: String
     var carbs: Double
     var calories: Double
+    var id = UUID()
 
     init(name: String, carbs: Double, calories: Double) {
         self.name = name

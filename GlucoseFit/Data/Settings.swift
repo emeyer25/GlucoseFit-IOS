@@ -68,7 +68,7 @@ class Settings: ObservableObject {
         }
     }
 
-    func currentDoseSettings(for time: Date = Date()) -> TimeBasedDoseSetting {
+    func currentDoseSettings(time: Date = Date()) -> TimeBasedDoseSetting {
         let calendar = Calendar.current
         let currentTime = calendar.dateComponents([.hour, .minute], from: time)
         

@@ -124,9 +124,8 @@ private let dateFormatter: DateFormatter = {
 }()
 
 #Preview {
-
-        CarbHomeView(selectedDate: Date())
-            .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self])
-            .preferredColorScheme(.dark)
-
+    CarbHomeView(selectedDate: Date())
+        .modelContainer(for: [MealLogEntry.self, FoodItem.self, SavedFoodItem.self])
+        .preferredColorScheme(.dark)
+    
 }

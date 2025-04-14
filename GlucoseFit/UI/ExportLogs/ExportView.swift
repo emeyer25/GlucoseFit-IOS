@@ -32,8 +32,6 @@ struct ExportView: View {
     @State private var review = false
     @State private var export = false
     
-    @State private var fileName = ""
-    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -78,12 +76,12 @@ struct ExportView: View {
             .cornerRadius(10)
             .padding(.horizontal)
             .sheet(isPresented: $review) {
-                ReviewExports(startDate: startTime, endDate: endTime) { fileName in
+                ReviewExports(startDate: startTime, endDate: endTime) {
                     review = false
                     export = true
                 }
             }
-            .fileExporter(isPresented: $export, document: TextFile(contents: "Sample Text"), contentType: .plainText, defaultFilename: fileName) { result in
+            .fileExporter(isPresented: $export, document: TextFile(contents: "Sample Text"), contentType: .commaSeparatedText, defaultFilename: "logs.csv") { result in
                 export = false
             }
         }

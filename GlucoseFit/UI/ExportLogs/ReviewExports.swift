@@ -18,9 +18,7 @@ struct ReviewExports: View {
         colorScheme == .dark ? .white : .black
     }
     
-    @State private var fileName = ""
-    
-    var confirm: (String) -> Void
+    var confirm: () -> Void
     
     var body: some View {
         ZStack {
@@ -39,13 +37,9 @@ struct ReviewExports: View {
             
             
             VStack {
-                HStack {
-                    TextField("Set file name", text: $fileName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .foregroundColor(textColor)
-                }
+                Spacer()
                 Button("Confirm logs") {
-                    confirm(fileName)
+                    confirm()
                 }
             }
         }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		162E062A2DADF6870011D71B /* IOSMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162E06292DADF6830011D71B /* IOSMain.swift */; };
+		162E063E2DADF7D20011D71B /* GlucoseFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */; };
 		F84918CA2D663AD90082DFF2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84918C92D663AD90082DFF2 /* DataManager.swift */; };
 		F869794F2D8398F900DAB0DD /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F869794E2D8398F900DAB0DD /* Launch Screen.storyboard */; };
 		F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */; };
@@ -14,7 +16,28 @@
 		F8E6CFB72D427F1D00EEE39E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E6CFB62D427F1D00EEE39E /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		162E060F2DADF4890011D71B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E6CFA22D427F1B00EEE39E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 162E06012DADF4880011D71B;
+			remoteInfo = "GlucoseFit Watch App";
+		};
+		162E06192DADF4890011D71B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E6CFA22D427F1B00EEE39E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 162E06012DADF4880011D71B;
+			remoteInfo = "GlucoseFit Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		162E06022DADF4880011D71B /* GlucoseFit Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GlucoseFit Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		162E060E2DADF4890011D71B /* GlucoseFit Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GlucoseFit Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		162E06182DADF4890011D71B /* GlucoseFit Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GlucoseFit Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		162E06292DADF6830011D71B /* IOSMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSMain.swift; sourceTree = "<group>"; };
 		F84918C92D663AD90082DFF2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F869794E2D8398F900DAB0DD /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F8E6CFAA2D427F1C00EEE39E /* GlucoseFit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -23,12 +46,47 @@
 		F8E6CFB62D427F1D00EEE39E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		162E063F2DADF7D30011D71B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MealLogEntry.swift,
+				Settings.swift,
+			);
+			target = 162E06012DADF4880011D71B /* GlucoseFit Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		162E06032DADF4880011D71B /* GlucoseFit Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "GlucoseFit Watch App"; sourceTree = "<group>"; };
+		162E06112DADF4890011D71B /* GlucoseFit Watch AppTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "GlucoseFit Watch AppTests"; sourceTree = "<group>"; };
+		162E061B2DADF4890011D71B /* GlucoseFit Watch AppUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "GlucoseFit Watch AppUITests"; sourceTree = "<group>"; };
 		16512EDA2D8EF1CC00312291 /* UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UI; sourceTree = "<group>"; };
-		16512EDB2D8EF1F800312291 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
+		16512EDB2D8EF1F800312291 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (162E063F2DADF7D30011D71B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		162E05FF2DADF4880011D71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E060B2DADF4890011D71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E06152DADF4890011D71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E6CFA72D427F1B00EEE39E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -44,6 +102,9 @@
 			children = (
 				F84918C92D663AD90082DFF2 /* DataManager.swift */,
 				F8E6CFAC2D427F1C00EEE39E /* GlucoseFit */,
+				162E06032DADF4880011D71B /* GlucoseFit Watch App */,
+				162E06112DADF4890011D71B /* GlucoseFit Watch AppTests */,
+				162E061B2DADF4890011D71B /* GlucoseFit Watch AppUITests */,
 				F8E6CFAB2D427F1C00EEE39E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,6 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				F8E6CFAA2D427F1C00EEE39E /* GlucoseFit.app */,
+				162E06022DADF4880011D71B /* GlucoseFit Watch App.app */,
+				162E060E2DADF4890011D71B /* GlucoseFit Watch AppTests.xctest */,
+				162E06182DADF4890011D71B /* GlucoseFit Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +123,7 @@
 		F8E6CFAC2D427F1C00EEE39E /* GlucoseFit */ = {
 			isa = PBXGroup;
 			children = (
+				162E06292DADF6830011D71B /* IOSMain.swift */,
 				16512EDB2D8EF1F800312291 /* Data */,
 				16512EDA2D8EF1CC00312291 /* UI */,
 				F8E6CFAD2D427F1C00EEE39E /* GlucoseFitApp.swift */,
@@ -80,6 +145,74 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		162E06012DADF4880011D71B /* GlucoseFit Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 162E06262DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch App" */;
+			buildPhases = (
+				162E05FE2DADF4880011D71B /* Sources */,
+				162E05FF2DADF4880011D71B /* Frameworks */,
+				162E06002DADF4880011D71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				162E06032DADF4880011D71B /* GlucoseFit Watch App */,
+			);
+			name = "GlucoseFit Watch App";
+			packageProductDependencies = (
+			);
+			productName = "GlucoseFit Watch App";
+			productReference = 162E06022DADF4880011D71B /* GlucoseFit Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		162E060D2DADF4890011D71B /* GlucoseFit Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 162E06272DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch AppTests" */;
+			buildPhases = (
+				162E060A2DADF4890011D71B /* Sources */,
+				162E060B2DADF4890011D71B /* Frameworks */,
+				162E060C2DADF4890011D71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				162E06102DADF4890011D71B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				162E06112DADF4890011D71B /* GlucoseFit Watch AppTests */,
+			);
+			name = "GlucoseFit Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "GlucoseFit Watch AppTests";
+			productReference = 162E060E2DADF4890011D71B /* GlucoseFit Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		162E06172DADF4890011D71B /* GlucoseFit Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 162E06282DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch AppUITests" */;
+			buildPhases = (
+				162E06142DADF4890011D71B /* Sources */,
+				162E06152DADF4890011D71B /* Frameworks */,
+				162E06162DADF4890011D71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				162E061A2DADF4890011D71B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				162E061B2DADF4890011D71B /* GlucoseFit Watch AppUITests */,
+			);
+			name = "GlucoseFit Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "GlucoseFit Watch AppUITests";
+			productReference = 162E06182DADF4890011D71B /* GlucoseFit Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F8E6CFA92D427F1B00EEE39E /* GlucoseFit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E6CFBA2D427F1D00EEE39E /* Build configuration list for PBXNativeTarget "GlucoseFit" */;
@@ -108,9 +241,20 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					162E06012DADF4880011D71B = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					162E060D2DADF4890011D71B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 162E06012DADF4880011D71B;
+					};
+					162E06172DADF4890011D71B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 162E06012DADF4880011D71B;
+					};
 					F8E6CFA92D427F1B00EEE39E = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -130,11 +274,35 @@
 			projectRoot = "";
 			targets = (
 				F8E6CFA92D427F1B00EEE39E /* GlucoseFit */,
+				162E06012DADF4880011D71B /* GlucoseFit Watch App */,
+				162E060D2DADF4890011D71B /* GlucoseFit Watch AppTests */,
+				162E06172DADF4890011D71B /* GlucoseFit Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		162E06002DADF4880011D71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E060C2DADF4890011D71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E06162DADF4890011D71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E6CFA82D427F1B00EEE39E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -148,10 +316,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		162E05FE2DADF4880011D71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				162E063E2DADF7D20011D71B /* GlucoseFitApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E060A2DADF4890011D71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		162E06142DADF4890011D71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E6CFA62D427F1B00EEE39E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				162E062A2DADF6870011D71B /* IOSMain.swift in Sources */,
 				F84918CA2D663AD90082DFF2 /* DataManager.swift in Sources */,
 				F8E6CFAE2D427F1C00EEE39E /* GlucoseFitApp.swift in Sources */,
 			);
@@ -159,7 +350,150 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		162E06102DADF4890011D71B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 162E06012DADF4880011D71B /* GlucoseFit Watch App */;
+			targetProxy = 162E060F2DADF4890011D71B /* PBXContainerItemProxy */;
+		};
+		162E061A2DADF4890011D71B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 162E06012DADF4880011D71B /* GlucoseFit Watch App */;
+			targetProxy = 162E06192DADF4890011D71B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		162E06202DADF4890011D71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = GlucoseFit;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		162E06212DADF4890011D71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = GlucoseFit;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		162E06222DADF4890011D71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diabetesapp.GlucoseFit-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlucoseFit Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GlucoseFit Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		162E06232DADF4890011D71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diabetesapp.GlucoseFit-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlucoseFit Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GlucoseFit Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
+		162E06242DADF4890011D71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diabetesapp.GlucoseFit-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "GlucoseFit Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		162E06252DADF4890011D71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.diabetesapp.GlucoseFit-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "GlucoseFit Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Release;
+		};
 		F8E6CFB82D427F1D00EEE39E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -348,6 +682,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		162E06262DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				162E06202DADF4890011D71B /* Debug */,
+				162E06212DADF4890011D71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		162E06272DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				162E06222DADF4890011D71B /* Debug */,
+				162E06232DADF4890011D71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		162E06282DADF4890011D71B /* Build configuration list for PBXNativeTarget "GlucoseFit Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				162E06242DADF4890011D71B /* Debug */,
+				162E06252DADF4890011D71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F8E6CFA52D427F1B00EEE39E /* Build configuration list for PBXProject "GlucoseFit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

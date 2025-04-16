@@ -131,7 +131,9 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showAddFood) {
             NavigationStack {
-                AddFoodNavigator()
+                AddFoodNavigator() {
+                    showAddFood = false
+                }
             }
         }
         .fullScreenCover(isPresented: $showImportFood) {

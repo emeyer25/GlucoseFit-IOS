@@ -7,8 +7,10 @@
 import SwiftUI
 
 struct Main: View {
+    @Environment(\.modelContext) private var modelContext
     @AppStorage("setupComplete") private var setupCompleted = false
     @State private var animateOnComplete = false
+    
     var body: some View {
         ZStack {
             if (!setupCompleted) {
@@ -23,6 +25,10 @@ struct Main: View {
             else {
                 ContentView()
             }
+        }
+        .onAppear {
+            WatchManager.shared.activateSession()
+            WatchManager.shared.setModelContext(modelContext)
         }
     }
 }

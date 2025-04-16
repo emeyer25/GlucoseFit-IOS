@@ -163,6 +163,9 @@ struct MealLogView: View {
             .padding()
         }
         .modelContext(modelContext)
+        .onAppear {
+            WatchManager.shared.checkState()
+        }
     }
 
     private func addFoodToMealLog(_ food: FoodItem) {

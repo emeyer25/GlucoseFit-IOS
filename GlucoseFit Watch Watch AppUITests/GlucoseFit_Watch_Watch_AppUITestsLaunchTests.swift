@@ -1,13 +1,13 @@
 //
-//  GlucoseFit_Watch_AppUITestsLaunchTests.swift
-//  GlucoseFit Watch AppUITests
+//  GlucoseFit_Watch_Watch_AppUITestsLaunchTests.swift
+//  GlucoseFit Watch Watch AppUITests
 //
-//  Created by Ian Burall on 4/14/25.
+//  Created by Ian Burall on 4/16/25.
 //
 
 import XCTest
 
-final class GlucoseFit_Watch_AppUITestsLaunchTests: XCTestCase {
+final class GlucoseFit_Watch_Watch_AppUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

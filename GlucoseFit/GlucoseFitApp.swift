@@ -3,6 +3,13 @@ import SwiftData
 
 @main
 struct GlucoseFitApp: App {
+    @Environment(\.modelContext) private var modelContext
+    
+    init() {
+        print("Starting session...")
+        _ = WatchManager.shared
+    }
+    
     var body: some Scene {
         WindowGroup {
             Main()

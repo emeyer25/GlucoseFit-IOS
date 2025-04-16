@@ -155,12 +155,12 @@ struct InitialConfigView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
-                .alert(isPresented: $alert) {
-                    Alert(
-                        title: Text("Missing Field"),
-                        message: Text("Please enter your goal calories to continue."),
-                        dismissButton: .default(Text("OK"))
-                    )
+                .alert("Missing Field", isPresented: $alert) {
+                    Button("Ok") {
+                        alert = false
+                    }
+                } message: {
+                    Text("Please enter your goal calories to continue.")
                 }
             }
         }
